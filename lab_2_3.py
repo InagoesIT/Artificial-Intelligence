@@ -114,10 +114,12 @@ class BktAlgorithm:
 
 
 class Tester:
-    def __init__(self, max_n, max_m, max_d):
+    def __init__(self, max_n, max_m, max_d, model_class, algorithm_class):
         self.max_n = max_n
         self.max_m = max_m
         self.max_d = max_d
+        self.model_class = model_class
+        self.algorithm_class = algorithm_class
 
     @staticmethod
     def gcd(a, b):
@@ -135,8 +137,8 @@ class Tester:
         if actual_d % Tester.gcd(actual_n, actual_m) == 0:
             must_pass = True
 
-        model = ProblemModel(n=actual_n, m=actual_m, k=actual_d)
-        algorithm = BktAlgorithm(model=model)
+        model = self.model_class(n=actual_n, m=actual_m, k=actual_d)
+        algorithm = self.algorithm_class(model=model)
         algorithm.bkt()
 
         print("Actual n %d actual m %d actual d %d and must pass %s" % (actual_n, actual_m, actual_d, must_pass))
@@ -153,7 +155,7 @@ def main():
     algorithm.bkt()
     algorithm.pretty_print_solution()
 
-    tester = Tester(max_n=20, max_m=20, max_d=10)
+    tester = Tester(max_n=20, max_m=20, max_d=10, model_class=ProblemModel, algorithm_class=BktAlgorithm)
     for i in range(200):
         tester.run_test()
 
