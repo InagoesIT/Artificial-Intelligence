@@ -1,3 +1,6 @@
+import random
+
+
 class ProblemModel:
     FIRST_JUG = 0
     SECOND_JUG = 1
@@ -6,25 +9,25 @@ class ProblemModel:
     GROUND = 3
 
     name_mapper = {
-    "FIRST_JUG": 0,
-    "SECOND_JUG": 1,
-    "MAX_JUG": 1,
-    "TAP": 2,
-    "GROUND": 3
+        "FIRST_JUG": 0,
+        "SECOND_JUG": 1,
+        "MAX_JUG": 1,
+        "TAP": 2,
+        "GROUND": 3
     }
 
-
-    def __init__(self, n, m) -> None:
+    def __init__(self, n, m, k) -> None:
         if n > m:
             n, m = m, n
-        
+
         self.capacities = {
             ProblemModel.FIRST_JUG: n,
             ProblemModel.SECOND_JUG: m
         }
-    
+        self.k = k
 
-    def init(self):
+    @staticmethod
+    def init():
         """
         state[0] = first jug current amount
         state[1] = second jug current amount
@@ -48,24 +51,25 @@ class ProblemModel:
         return tr_list
 
     def do_transition(self, state, tr):
+        return_state = list(state)
         if tr[0] == ProblemModel.TAP:
-            state[tr[1]] = self.capacities[tr[1]]
-            return state
+            return_state[tr[1]] = self.capacities[tr[1]]
+            return return_state
         if tr[1] == ProblemModel.GROUND:
-            state[tr[0]] = 0
-            return state
+            return_state[tr[0]] = 0
+            return return_state
 
-        from_jug = max(0, state[tr[1]] + state[tr[0]] - self.capacities[tr[1]])
-        state[tr[1]] = min(self.capacities[state[tr[1]]], state[tr[1]] + state[tr[0]])
-        state[tr[0]] = from_jug
-        return state
-
+        return_state[tr[1]] = min(self.capacities[tr[1]], state[tr[1]] + state[tr[0]])
+        return_state[tr[0]] = max(0, state[tr[1]] + state[tr[0]] - self.capacities[tr[1]])
+        return return_state
 
     def is_final(self, state):
-        return state[0] == k or state[1] == k
+        return state[0] == self.k or state[1] == self.k
+
 
 class BktAlgorithm:
     def __init__(self, model) -> None:
+        self.solution_found = False
         self.model = model
         self.before_state = dict()
         self.before_transition = dict()
@@ -73,16 +77,18 @@ class BktAlgorithm:
         self.tr_list = list()
 
     def build_solution(self, state):
-        while state in self.before_state:
-            self.tr_list.append(self.before_transition[state])
-            state = self.before_state[state]
+        modified_state = tuple(state)
+        while modified_state in self.before_state:
+            self.tr_list.append(self.before_transition[modified_state])
+            modified_state = tuple(self.before_state[modified_state])
         self.tr_list = self.tr_list[::-1]
 
     def pretty_print_solution(self):
+        dict_data = ProblemModel.name_mapper
         for tr in self.tr_list:
-            from_index =  ProblemModel.name_mapper.index(tr[0])
-            to_index =  ProblemModel.name_mapper.index(tr[1])
-            print("Moving water from %s to %s" % (ProblemModel.name_mapper[from_index], ProblemModel.name_mapper[to_index]))
+            from_state = [i for i in dict_data if dict_data[i] == tr[0]]
+            to_state = [i for i in dict_data if dict_data[i] == tr[1]]
+            print("Moving water from %s to %s" % (from_state[0], to_state[0]))
 
     def __bkt__(self, state):
         if self.model.is_final(state):
@@ -102,16 +108,47 @@ class BktAlgorithm:
 
     def bkt(self):
         state = self.model.init()
-        self.solution_found = False
-        self.__bkt__(state = state)
-    
+        self.__bkt__(state=state)
+
+
+class Tester:
+    def __init__(self, max_n, max_m, max_d, algorithm):
+        self.max_n = max_n
+        self.max_m = max_m
+        self.max_d = max_d
+        self.algorithm = algorithm
+
+    @staticmethod
+    def gcd(a, b):
+        while b != 0:
+            r = a % b
+            a = b
+            b = r
+        return a
+
+    def run_test(self):
+        actual_n = random.randint(1, self.max_n)
+        actual_m = random.randint(1, self.max_m)
+        actual_d = random.randint(1, self.max_d)
+        must_pass = False
+        if actual_d % Tester.gcd(actual_n, actual_m) == 0:
+            must_pass = True
+        self.algorithm.bkt()
+        assert must_pass == self.algorithm.solution_found
+
+
 def main():
     n = 3
     m = 5
-    model = ProblemModel(n=n, m=m)
+    k = 2
+    model = ProblemModel(n=n, m=m, k=k)
     algorithm = BktAlgorithm(model=model)
     algorithm.bkt()
     algorithm.pretty_print_solution()
+
+    tester = Tester(max_n=10, max_m=10, max_d=4, algorithm=algorithm)
+    for i in range(4):
+        tester.run_test()
 
 
 if __name__ == "__main__":
