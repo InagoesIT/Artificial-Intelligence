@@ -115,9 +115,4 @@ def main():
 
 
 if __name__ == "__main__":
-    n = 3
-    m = 5
-    k = 2
-    if n > m:
-        n, m = m, n
     main()
