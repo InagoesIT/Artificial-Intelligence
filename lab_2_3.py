@@ -80,7 +80,7 @@ class BktAlgorithm:
         modified_state = tuple(state)
         while modified_state in self.before_state:
             self.tr_list.append(self.before_transition[modified_state])
-            modified_state = tuple(self.before_state[modified_state])
+            modified_state = self.before_state[modified_state]
         self.tr_list = self.tr_list[::-1]
 
     def pretty_print_solution(self):
@@ -96,12 +96,14 @@ class BktAlgorithm:
             self.build_solution(state)
             return
 
-        self.marked_states.add(tuple(state))
+        tuple_state = tuple(state)
+        self.marked_states.add(tuple_state)
         for transition in self.model.get_transitions(state):
             next_state = self.model.do_transition(state, transition)
-            if tuple(next_state) not in self.marked_states:
-                self.before_state[tuple(next_state)] = state
-                self.before_transition[tuple(next_state)] = transition
+            tuple_next_state = tuple(next_state)
+            if tuple_next_state not in self.marked_states:
+                self.before_state[tuple_next_state] = tuple_state
+                self.before_transition[tuple_next_state] = transition
                 self.__bkt__(next_state)
                 if self.solution_found is True:
                     return
@@ -112,11 +114,10 @@ class BktAlgorithm:
 
 
 class Tester:
-    def __init__(self, max_n, max_m, max_d, algorithm):
+    def __init__(self, max_n, max_m, max_d):
         self.max_n = max_n
         self.max_m = max_m
         self.max_d = max_d
-        self.algorithm = algorithm
 
     @staticmethod
     def gcd(a, b):
@@ -129,12 +130,18 @@ class Tester:
     def run_test(self):
         actual_n = random.randint(1, self.max_n)
         actual_m = random.randint(1, self.max_m)
-        actual_d = random.randint(1, self.max_d)
+        actual_d = random.randint(1, min(actual_n, actual_m))
         must_pass = False
         if actual_d % Tester.gcd(actual_n, actual_m) == 0:
             must_pass = True
-        self.algorithm.bkt()
-        assert must_pass == self.algorithm.solution_found
+
+        model = ProblemModel(n=actual_n, m=actual_m, k=actual_d)
+        algorithm = BktAlgorithm(model=model)
+        algorithm.bkt()
+
+        print("Actual n %d actual m %d actual d %d and must pass %s" % (actual_n, actual_m, actual_d, must_pass))
+        print("Solution found: %s" % algorithm.solution_found)
+        assert must_pass == algorithm.solution_found
 
 
 def main():
@@ -146,8 +153,8 @@ def main():
     algorithm.bkt()
     algorithm.pretty_print_solution()
 
-    tester = Tester(max_n=10, max_m=10, max_d=4, algorithm=algorithm)
-    for i in range(4):
+    tester = Tester(max_n=20, max_m=20, max_d=10)
+    for i in range(200):
         tester.run_test()
 
 
