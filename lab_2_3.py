@@ -1,5 +1,7 @@
 import random
 
+import networkx as nx
+
 
 class ProblemModel:
     FIRST_JUG = 0
@@ -63,6 +65,27 @@ class ProblemModel:
         return_state[tr[0]] = max(0, state[tr[1]] + state[tr[0]] - self.capacities[tr[1]])
         return return_state
 
+    def find_transition(self, state_from, state_to):
+        transition = []
+
+        for jug in self.capacities.keys():
+            other_jug = ProblemModel.MAX_JUG - jug
+            if state_from[jug] == state_to[jug]:
+                transition = [ProblemModel.TAP, other_jug]
+                if state_to[other_jug] == 0:
+                    transition = [other_jug, ProblemModel.GROUND]
+                    break
+                break
+
+        if len(transition) != 0:
+            return transition
+
+        if (state_from[ProblemModel.FIRST_JUG] > state_to[ProblemModel.FIRST_JUG] and
+                state_from[ProblemModel.SECOND_JUG] < state_to[ProblemModel.SECOND_JUG]):
+            return [ProblemModel.FIRST_JUG, ProblemModel.SECOND_JUG]
+
+        return [ProblemModel.SECOND_JUG, ProblemModel.FIRST_JUG]
+
     def is_final(self, state):
         return state[0] == self.k or state[1] == self.k
 
@@ -108,16 +131,73 @@ class BktAlgorithm:
                 if self.solution_found is True:
                     return
 
-    def bkt(self):
+    def run(self):
         state = self.model.init()
         self.__bkt__(state=state)
 
 
+class BfsAlgorithm:
+    def __init__(self, model) -> None:
+        self.solution_found = False
+        self.model = model
+        self.states_graph = nx.DiGraph()
+        self.transitions_list = list()
+        self.visited_states = list()
+
+    def build_solution(self, state):
+        graph = nx.reverse(self.states_graph)
+        ancestors = [state]
+        while True:
+            edges = list(graph.edges(state))
+            if len(edges) == 0:
+                break
+            state = list(edges[0])[1]
+            ancestors.append(state)
+        ancestors = ancestors[::-1]
+        for i in range(len(ancestors) - 1):
+            self.transitions_list.append(self.model.find_transition(list(ancestors[i]), list(ancestors[i + 1])))
+
+    def pretty_print_solution(self):
+        print("SOLUTION FOUND:", self.solution_found)
+        dict_data = ProblemModel.name_mapper
+        for tr in self.transitions_list:
+            from_state = [i for i in dict_data if dict_data[i] == tr[0]]
+            to_state = [i for i in dict_data if dict_data[i] == tr[1]]
+            print("-> Moving water from %s to %s" % (from_state[0], to_state[0]))
+
+    def bfs_recursive(self, parents):
+        new_parents = list()
+
+        for parent in parents:
+            for transition in self.model.get_transitions(parent):
+                child = tuple(self.model.do_transition(parent, transition))
+                if child in self.visited_states:
+                    continue
+                self.states_graph.add_edge(tuple(parent), tuple(child))
+
+                if self.model.is_final(child):
+                    self.solution_found = True
+                    self.build_solution(child)
+                    return
+
+                new_parents.append(child)
+                self.visited_states.append(child)
+        if len(new_parents) > 0:
+            self.bfs_recursive(new_parents)
+
+    def run(self):
+        state = self.model.init()
+        root_state_array = list()
+        root_state_array.append(state)
+        self.visited_states.append(tuple(state))
+        self.bfs_recursive(root_state_array)
+
+
 class Tester:
-    def __init__(self, max_n, max_m, max_d, model_class, algorithm_class):
+    def __init__(self, max_n, max_m, max_k, model_class, algorithm_class):
         self.max_n = max_n
         self.max_m = max_m
-        self.max_d = max_d
+        self.max_k = max_k
         self.model_class = model_class
         self.algorithm_class = algorithm_class
 
@@ -132,16 +212,16 @@ class Tester:
     def run_test(self):
         actual_n = random.randint(1, self.max_n)
         actual_m = random.randint(1, self.max_m)
-        actual_d = random.randint(1, min(actual_n, actual_m))
+        actual_k = random.randint(1, min(actual_n, actual_m))
         must_pass = False
-        if actual_d % Tester.gcd(actual_n, actual_m) == 0:
+        if actual_k % Tester.gcd(actual_n, actual_m) == 0:
             must_pass = True
 
-        model = self.model_class(n=actual_n, m=actual_m, k=actual_d)
+        model = self.model_class(n=actual_n, m=actual_m, k=actual_k)
         algorithm = self.algorithm_class(model=model)
-        algorithm.bkt()
+        algorithm.run()
 
-        print("Actual n %d actual m %d actual d %d and must pass %s" % (actual_n, actual_m, actual_d, must_pass))
+        print("Actual n: %d actual m: %d actual k: %d and must pass: %s" % (actual_n, actual_m, actual_k, must_pass))
         print("Solution found: %s" % algorithm.solution_found)
         assert must_pass == algorithm.solution_found
 
@@ -151,13 +231,17 @@ def main():
     m = 5
     k = 2
     model = ProblemModel(n=n, m=m, k=k)
-    algorithm = BktAlgorithm(model=model)
-    algorithm.bkt()
-    algorithm.pretty_print_solution()
+    # algorithm = BktAlgorithm(model=model)
+    # algorithm.run()
+    # algorithm.pretty_print_solution()
 
-    tester = Tester(max_n=20, max_m=20, max_d=10, model_class=ProblemModel, algorithm_class=BktAlgorithm)
+    tester = Tester(max_n=20, max_m=20, max_k=10, model_class=ProblemModel, algorithm_class=BfsAlgorithm)
     for i in range(200):
         tester.run_test()
+        print()
+
+    algorithm = BfsAlgorithm(model=model)
+    algorithm.run()
 
 
 if __name__ == "__main__":
