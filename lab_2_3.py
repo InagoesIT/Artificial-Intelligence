@@ -96,8 +96,8 @@ class BktAlgorithm:
         self.model = model
         self.before_state = dict()
         self.before_transition = dict()
-        self.marked_states = set()
         self.tr_list = list()
+        self.current_path = set()
 
     def build_solution(self, state):
         modified_state = tuple(state)
@@ -120,19 +120,21 @@ class BktAlgorithm:
             return
 
         tuple_state = tuple(state)
-        self.marked_states.add(tuple_state)
         for transition in self.model.get_transitions(state):
             next_state = self.model.do_transition(state, transition)
             tuple_next_state = tuple(next_state)
-            if tuple_next_state not in self.marked_states:
+            if tuple_next_state not in self.current_path:
                 self.before_state[tuple_next_state] = tuple_state
                 self.before_transition[tuple_next_state] = transition
+                self.current_path.add(tuple_next_state)
                 self.__bkt__(next_state)
                 if self.solution_found is True:
                     return
+                self.current_path.remove(tuple_next_state)
 
     def run(self):
         state = self.model.init()
+        self.current_path = {tuple(state)}
         self.__bkt__(state=state)
 
 
@@ -227,22 +229,11 @@ class Tester:
 
 
 def main():
-    n = 3
-    m = 5
-    k = 2
-    model = ProblemModel(n=n, m=m, k=k)
-    # algorithm = BktAlgorithm(model=model)
-    # algorithm.run()
-    # algorithm.pretty_print_solution()
-
-    tester = Tester(max_n=20, max_m=20, max_k=10, model_class=ProblemModel, algorithm_class=BfsAlgorithm)
-    for i in range(200):
-        tester.run_test()
-        print()
-
-    algorithm = BfsAlgorithm(model=model)
-    algorithm.run()
-
+    for algorithm in [BktAlgorithm, BfsAlgorithm]:
+        tester = Tester(max_n=20, max_m=20, max_k=10, model_class=ProblemModel, algorithm_class=algorithm)
+        for i in range(200):
+            tester.run_test()
+            print()
 
 if __name__ == "__main__":
     main()
