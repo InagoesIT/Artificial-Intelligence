@@ -1,7 +1,10 @@
 import random
-
+import logging
+import argparse
+import re
 import networkx as nx
 
+logging.basicConfig(filename='ai.log', level=logging.INFO)
 
 class ProblemModel:
     FIRST_JUG = 0
@@ -111,7 +114,7 @@ class BktAlgorithm:
         for tr in self.tr_list:
             from_state = [i for i in dict_data if dict_data[i] == tr[0]]
             to_state = [i for i in dict_data if dict_data[i] == tr[1]]
-            print("Moving water from %s to %s" % (from_state[0], to_state[0]))
+            logging.log("Moving water from %s to %s" % (from_state[0], to_state[0]))
 
     def __bkt__(self, state):
         if self.model.is_final(state):
@@ -160,12 +163,12 @@ class BfsAlgorithm:
             self.transitions_list.append(self.model.find_transition(list(ancestors[i]), list(ancestors[i + 1])))
 
     def pretty_print_solution(self):
-        print("SOLUTION FOUND:", self.solution_found)
+        logging.info("SOLUTION FOUND:", self.solution_found)
         dict_data = ProblemModel.name_mapper
         for tr in self.transitions_list:
             from_state = [i for i in dict_data if dict_data[i] == tr[0]]
             to_state = [i for i in dict_data if dict_data[i] == tr[1]]
-            print("-> Moving water from %s to %s" % (from_state[0], to_state[0]))
+            logging.info("-> Moving water from %s to %s" % (from_state[0], to_state[0]))
 
     def bfs_recursive(self, parents):
         new_parents = list()
@@ -223,17 +226,31 @@ class Tester:
         algorithm = self.algorithm_class(model=model)
         algorithm.run()
 
-        print("Actual n: %d actual m: %d actual k: %d and must pass: %s" % (actual_n, actual_m, actual_k, must_pass))
-        print("Solution found: %s" % algorithm.solution_found)
+        logging.info("Actual n: %d actual m: %d actual k: %d and must pass: %s" % (actual_n, actual_m, actual_k, must_pass))
+        logging.info("Solution found: %s\n" % algorithm.solution_found)
         assert must_pass == algorithm.solution_found
 
 
+
 def main():
-    for algorithm in [BktAlgorithm, BfsAlgorithm]:
-        tester = Tester(max_n=20, max_m=20, max_k=10, model_class=ProblemModel, algorithm_class=algorithm)
-        for i in range(200):
-            tester.run_test()
-            print()
+    # for algorithm in [BktAlgorithm, BfsAlgorithm]:
+    #     tester = Tester(max_n=20, max_m=20, max_k=10, model_class=ProblemModel, algorithm_class=algorithm)
+    #     for i in range(1000):
+    #         tester.run_test()
+
+    parser = argparse.ArgumentParser(description='Jug Problem Menu')
+    requiredNamed = parser.add_argument_group('required named arguments')
+    requiredNamed.add_argument('-n', type=int,
+                        help='first jug capacity', required=True)
+    requiredNamed.add_argument('-m', type=int,  
+                        help='second jug capacity', required=True)
+    requiredNamed.add_argument('-k', type=int,
+                        help='desired amount', required=True)
+    parser.add_argument('-a', '--algorithm', metavar='A', choices = ['bkt', 'dfs', 'a*', 'hill'],
+                        help='algorithm to be applied to the instance of the problem: %(choices)s, default: %(default)s', required=False, default='bfs')                    
+    args = parser.parse_args()
+    # print(args.accumulate(args.integers))
+
 
 if __name__ == "__main__":
     main()
