@@ -1,0 +1,23 @@
+f(x + eps) > f(x - eps) && f (x + eps) > f(x)
+bazin de atractie
+500 random var
+vecinatate - tranzitii
+nu exista f(x)
+
+
+f(x) - estimator
+min(|a - d|, |b - d|) - ma apropii de optim
+
+d(x0, x) = g(x)
+d(x, xF) = f(x) - estimare
+min (g(xc) + f (xc))
+
+A* - nu conteaza fata de starea actuala, doar fata de vecini
+similar problemei anterioare:
+g(X + eps) + f(x + eps) < g(x + eps') + f(x + eps')
+oricare eps' != eps
+
+hill' - intr-o singura urcare mereu ma uit in vecinatatea unui punct curent
+A* - pt ca am calculat in fiecare punct distanta estimata in fiecare - pe frontiera 
+spatiului explorat
+pq queue
