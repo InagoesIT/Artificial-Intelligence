@@ -1,16 +1,18 @@
 import logging
 import argparse
-from algorithm.bfs import BfsAlgorithm
-from algorithm.bkt import BktAlgorithm
-from algorithm.hill_climbing import HillClimbingAlgorithm
-from algorithm.model import ProblemModel
+from bfs import BfsAlgorithm
+from bkt import BktAlgorithm
+from hill_climbing import HillClimbingAlgorithm
+from a_star import AStarAlgorithm
+from model import ProblemModel
 
-logging.basicConfig(filename='./logging/ai.log', level=logging.INFO)
+logging.basicConfig(filename='../lab2_3/logging/ai.log', level=logging.INFO)
 
 algorithm_mapper = {
     'bkt': BktAlgorithm,
     'bfs': BfsAlgorithm,
-    'hill': HillClimbingAlgorithm
+    'hill': HillClimbingAlgorithm,
+    'astar': AStarAlgorithm
 }
 
 
@@ -23,7 +25,7 @@ def main():
     required_parser.add_argument('-m', type=int, help='second jug capacity', required=True)
     required_parser.add_argument('-k', type=int, help='desired amount', required=True)
     parser.add_argument('-a',
-                        '--algorithm', metavar='A', choices=['bkt', 'bfs', 'a*', 'hill'],
+                        '--algorithm', metavar='A', choices=['bkt', 'bfs', 'astar', 'hill'],
                         help='algorithm to be applied to the instance of the problem: %(choices)s, default: %(default)s',
                         required=False, default='bfs')
 
