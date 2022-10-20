@@ -1,8 +1,37 @@
+INFO:root:SOLUTION FOUND: True with algorithm a* 
+INFO:root:n = 3; m = 4; k = 2
+INFO:root:Moving water from TAP to FIRST_JUG
+INFO:root:Moving water from FIRST_JUG to SECOND_JUG
+INFO:root:Moving water from TAP to FIRST_JUG
+INFO:root:Moving water from FIRST_JUG to SECOND_JUG
+INFO:root:
 
+INFO:root:SOLUTION FOUND: True with algorithm bfs
+INFO:root:n = 3; m = 4; k = 2
+INFO:root:-> Moving water from TAP to FIRST_JUG
+INFO:root:-> Moving water from FIRST_JUG to SECOND_JUG
+INFO:root:-> Moving water from TAP to FIRST_JUG
+INFO:root:-> Moving water from FIRST_JUG to SECOND_JUG
+INFO:root:
+
+INFO:root:SOLUTION FOUND: True with algorithm bfs
+INFO:root:n = 2; m = 5; k = 1
+INFO:root:-> Moving water from TAP to SECOND_JUG
+INFO:root:-> Moving water from SECOND_JUG to FIRST_JUG
+INFO:root:-> Moving water from FIRST_JUG to GROUND
+INFO:root:-> Moving water from SECOND_JUG to FIRST_JUG
+INFO:root:
+
+INFO:root:SOLUTION FOUND: True with algorithm a* 
+INFO:root:n = 2; m = 5; k = 1
 INFO:root:Moving water from TAP to SECOND_JUG
 INFO:root:Moving water from SECOND_JUG to FIRST_JUG
 INFO:root:Moving water from FIRST_JUG to GROUND
 INFO:root:Moving water from SECOND_JUG to FIRST_JUG
+INFO:root:
+
+INFO:root:SOLUTION FOUND: True with algorithm a* 
+INFO:root:n = 5; m = 6; k = 3
 INFO:root:Moving water from TAP to FIRST_JUG
 INFO:root:Moving water from FIRST_JUG to SECOND_JUG
 INFO:root:Moving water from TAP to FIRST_JUG
@@ -11,3 +40,17 @@ INFO:root:Moving water from SECOND_JUG to GROUND
 INFO:root:Moving water from FIRST_JUG to SECOND_JUG
 INFO:root:Moving water from TAP to FIRST_JUG
 INFO:root:Moving water from FIRST_JUG to SECOND_JUG
+INFO:root:
+
+INFO:root:SOLUTION FOUND: True with algorithm bfs
+INFO:root:n = 5; m = 6; k = 3
+INFO:root:-> Moving water from TAP to FIRST_JUG
+INFO:root:-> Moving water from FIRST_JUG to SECOND_JUG
+INFO:root:-> Moving water from TAP to FIRST_JUG
+INFO:root:-> Moving water from FIRST_JUG to SECOND_JUG
+INFO:root:-> Moving water from SECOND_JUG to GROUND
+INFO:root:-> Moving water from FIRST_JUG to SECOND_JUG
+INFO:root:-> Moving water from TAP to FIRST_JUG
+INFO:root:-> Moving water from FIRST_JUG to SECOND_JUG
+INFO:root:
+

@@ -40,6 +40,8 @@ def main():
     else:
         print("No solution found")
 
+    logging.info("\n")
+
 
 if __name__ == "__main__":
     main()
