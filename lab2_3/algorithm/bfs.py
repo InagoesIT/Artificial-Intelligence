@@ -1,6 +1,6 @@
 import logging
 import networkx as nx
-from model import ProblemModel
+from algorithm.model import ProblemModel
 
 
 class BfsAlgorithm:

@@ -1,5 +1,5 @@
 import logging
-from model import ProblemModel
+from algorithm.model import ProblemModel
 
 
 class BktAlgorithm:

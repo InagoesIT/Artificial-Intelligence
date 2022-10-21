@@ -1,5 +1,5 @@
 import logging
-from model import ProblemModel
+from algorithm.model import ProblemModel
 
 
 def get_first_unexplored(priority_queue):
