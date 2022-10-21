@@ -61,7 +61,7 @@ class AStarAlgorithm:
             self.priority_queue.append((first_unexplored[0], first_unexplored[1], True))
             self.add_all_kids(first_unexplored[1])
             self.clean_duplicates()
-            self.priority_queue.sort()
+            self.priority_queue.sort(key=lambda v: v[0])
             first_unexplored, curr_index = get_first_unexplored(self.priority_queue)
 
         if self.solution_found:

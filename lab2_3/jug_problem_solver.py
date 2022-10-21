@@ -28,7 +28,6 @@ def main():
                         '--algorithm', metavar='A', choices=['bkt', 'bfs', 'astar', 'hill'],
                         help='algorithm to be applied to the instance of the problem: %(choices)s, default: %(default)s',
                         required=False, default='bfs')
-
     args = vars(parser.parse_args())
     algorithm_class = algorithm_mapper[args['algorithm']]
     model = ProblemModel(n=args['n'], m=args['m'], k=args['k'])

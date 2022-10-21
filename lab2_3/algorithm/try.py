@@ -3,7 +3,7 @@ priority_queue.append((5, (2, 3), True))
 priority_queue.append((1, (4, 5), False))
 priority_queue.append((3, (4, 5), True))
 priority_queue.append((3, (4, 5), True))
-priority_queue.sort()
+priority_queue.sort(key=lambda v: v[0])
 states_set = dict()
 resulting_dict = dict()
 
