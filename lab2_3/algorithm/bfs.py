@@ -1,6 +1,6 @@
 import logging
 import networkx as nx
-from algorithm.model import ProblemModel
+from model import ProblemModel
 
 
 class BfsAlgorithm:
@@ -25,7 +25,8 @@ class BfsAlgorithm:
             self.transitions_list.append(self.model.find_transition(list(ancestors[i]), list(ancestors[i + 1])))
 
     def pretty_print_solution(self):
-        logging.info("SOLUTION FOUND: %s" % self.solution_found)
+        logging.info("SOLUTION FOUND: %s with algorithm bfs" % self.solution_found)
+        logging.info(f"n = {self.model.capacities[0]}; m = {self.model.capacities[1]}; k = {self.model.k}")
         dict_data = ProblemModel.name_mapper
         for tr in self.transitions_list:
             from_state = [i for i in dict_data if dict_data[i] == tr[0]]

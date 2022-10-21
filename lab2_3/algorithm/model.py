@@ -61,25 +61,20 @@ class ProblemModel:
         return return_state
 
     def find_transition(self, state_from, state_to):
-        transition = []
-
         for jug in self.capacities.keys():
             other_jug = ProblemModel.MAX_JUG - jug
             if state_from[jug] == state_to[jug]:
-                transition = [ProblemModel.TAP, other_jug]
-                if state_to[other_jug] == 0:
-                    transition = [other_jug, ProblemModel.GROUND]
-                    break
-                break
-
-        if len(transition) != 0:
-            return transition
-
-        if (state_from[ProblemModel.FIRST_JUG] > state_to[ProblemModel.FIRST_JUG] and
-                state_from[ProblemModel.SECOND_JUG] < state_to[ProblemModel.SECOND_JUG]):
-            return [ProblemModel.FIRST_JUG, ProblemModel.SECOND_JUG]
-
-        return [ProblemModel.SECOND_JUG, ProblemModel.FIRST_JUG]
+                if state_to[other_jug] == self.capacities[other_jug]:
+                    return [ProblemModel.TAP, other_jug]
+                elif state_to[other_jug] == 0:
+                    return [other_jug, ProblemModel.GROUND]
+            if (state_from[jug] > state_to[jug] and
+                    state_from[jug] - state_to[jug] == state_to[other_jug] - state_from[other_jug]):
+                return [jug, other_jug]
+            elif (state_from[jug] < state_to[jug] and
+                  state_to[jug] - state_from[jug] == state_from[other_jug] - state_to[other_jug]):
+                return [other_jug, jug]
+        return None
 
     def is_final(self, state):
         return state[0] == self.k or state[1] == self.k
