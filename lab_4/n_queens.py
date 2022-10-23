@@ -25,6 +25,7 @@ def main():
     parser.add_argument('-b', '--blocks', nargs='*', type=int, help='Block pairs', required=False, action='append')
     args = vars(parser.parse_args())
     model = ProblemModel(args["number_queens"], args["blocks"])
+    model.pretty_print_model()
     algorithm = Algorithm(model)
     algorithm.run()
 

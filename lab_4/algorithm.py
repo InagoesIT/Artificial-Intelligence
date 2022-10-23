@@ -13,7 +13,6 @@ class Algorithm:
 
     def update_domanins(self, queen_index: int, column_index: int) -> list[tuple]:
         removed_values = []
-        self.model.queen_domains[queen_index].remove(column_index)
         delta_coords_list = [(-1, 1), (1, 1), (-1, -1), (1, -1),  # diag coords
                              (0, 1), (0, -1), (1, 0), (-1, 0)]  # axis parallel coords
 
@@ -21,7 +20,7 @@ class Algorithm:
             for delta_coords in delta_coords_list:
                 new_line = queen_index + delta_coords[0] * index
                 new_column = column_index + delta_coords[1] * index
-                if 0 <= new_line <= self.model.n - 1 and 0 <= new_column <= self.model.n:
+                if 0 <= new_line <= self.model.n - 1 and 0 <= new_column <= self.model.n - 1:
                     if new_column in self.model.queen_domains[new_line]:
                         self.model.queen_domains[new_line].remove(new_column)
                         removed_values.append((new_line, new_column))
