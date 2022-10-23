@@ -1,6 +1,7 @@
 import argparse
 from algorithm import Algorithm
 
+
 class ProblemModel:
     def __init__(self, n: int, blocks: list):
         self.n = n
@@ -28,6 +29,7 @@ def main():
     model.pretty_print_model()
     algorithm = Algorithm(model)
     algorithm.run()
+
 
 if __name__ == "__main__":
     main()
