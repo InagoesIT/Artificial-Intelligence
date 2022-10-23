@@ -1,5 +1,5 @@
 import argparse
-
+from algorithm import Algorithm
 
 class ProblemModel:
     def __init__(self, n: int, blocks: list):
@@ -9,13 +9,11 @@ class ProblemModel:
             self.queen_domains[block[0]].remove(block[1])
         self.queen_column = [-1 for _ in range(n)]
 
-    def attack_each_other(self, i, j):
-        return abs(i - j) == abs(self.queen_column[i] - self.queen_column[j]) or \
-               self.queen_column[i] == self.queen_column[j]
-
     def pretty_print_model(self):
         for index, domain in enumerate(self.queen_domains):
             print(f"Domain of queen with {index} is {domain}")
+        for index, column in enumerate(self.queen_column):
+            print(f"Queen with index {index} placed on column {column}")
 
 
 def main():
@@ -26,10 +24,9 @@ def main():
                                  required=True)
     parser.add_argument('-b', '--blocks', nargs='*', type=int, help='Block pairs', required=False, action='append')
     args = vars(parser.parse_args())
-    print(args)
     model = ProblemModel(args["number_queens"], args["blocks"])
-    model.pretty_print_model()
-
+    algorithm = Algorithm(model)
+    algorithm.run()
 
 if __name__ == "__main__":
     main()
