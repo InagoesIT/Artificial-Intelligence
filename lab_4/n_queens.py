@@ -1,5 +1,9 @@
 import argparse
+import logging
+
 from algorithm import Algorithm
+
+logging.basicConfig(filename='results.log', level=logging.INFO)
 
 
 class ProblemModel:
@@ -12,9 +16,9 @@ class ProblemModel:
 
     def pretty_print_model(self):
         for index, domain in enumerate(self.queen_domains):
-            print(f"Domain of queen with {index} is {domain}")
+            logging.info(f"Domain of queen with {index} is {domain}")
         for index, column in enumerate(self.queen_column):
-            print(f"Queen with index {index} placed on column {column}")
+            logging.info(f"Queen with index {index} placed on column {column}")
 
 
 def main():
@@ -26,7 +30,6 @@ def main():
     parser.add_argument('-b', '--blocks', nargs='*', type=int, help='Block pairs', required=False, action='append')
     args = vars(parser.parse_args())
     model = ProblemModel(args["number_queens"], args["blocks"])
-    model.pretty_print_model()
     algorithm = Algorithm(model)
     algorithm.run()
 

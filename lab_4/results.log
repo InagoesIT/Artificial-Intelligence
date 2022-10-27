@@ -1,0 +1,20 @@
+INFO:root:Domain of queen with 0 is set()
+INFO:root:Domain of queen with 1 is set()
+INFO:root:Domain of queen with 2 is set()
+INFO:root:Domain of queen with 3 is set()
+INFO:root:Domain of queen with 4 is set()
+INFO:root:Domain of queen with 5 is set()
+INFO:root:Domain of queen with 6 is set()
+INFO:root:Domain of queen with 7 is set()
+INFO:root:Domain of queen with 8 is set()
+INFO:root:Domain of queen with 9 is {4}
+INFO:root:Queen with index 0 placed on column 2
+INFO:root:Queen with index 1 placed on column 8
+INFO:root:Queen with index 2 placed on column 5
+INFO:root:Queen with index 3 placed on column 9
+INFO:root:Queen with index 4 placed on column 1
+INFO:root:Queen with index 5 placed on column 6
+INFO:root:Queen with index 6 placed on column 0
+INFO:root:Queen with index 7 placed on column 3
+INFO:root:Queen with index 8 placed on column 7
+INFO:root:Queen with index 9 placed on column 4

@@ -1,6 +1,7 @@
 class Algorithm:
     def __init__(self, model):
         self.model = model
+        self.solution_found = False
 
     def get_queen_index_by_smallest_domain(self) -> int:
         best_index = -1
@@ -11,7 +12,7 @@ class Algorithm:
                 best_index = index
         return best_index
 
-    def update_domanins(self, queen_index: int, column_index: int) -> list[tuple]:
+    def update_domains(self, queen_index: int, column_index: int) -> list[tuple]:
         removed_values = []
         delta_coords_list = [(-1, 1), (1, 1), (-1, -1), (1, -1),  # diag coords
                              (0, 1), (0, -1), (1, 0), (-1, 0)]  # axis parallel coords
@@ -33,17 +34,22 @@ class Algorithm:
     def build_solution(self, queen_index: int):
         for column_index in self.model.queen_domains[queen_index]:
             self.model.queen_column[queen_index] = column_index
-            self.model.pretty_print_model()
+        self.model.pretty_print_model()
         self.model.queen_column[queen_index] = -1
 
     def __run__(self, queen_index: int, depth_level: int):
-        if depth_level == self.model.n:
+        if self.solution_found:
+            return
+
+        if depth_level == self.model.n and not self.solution_found:
             self.build_solution(queen_index)
+            self.solution_found = True
+            return
 
         snapshot_queen_domains = self.model.queen_domains[queen_index].copy()
         for column_index in snapshot_queen_domains:
             self.model.queen_column[queen_index] = column_index
-            removed_domains = self.update_domanins(queen_index=queen_index, column_index=column_index)
+            removed_domains = self.update_domains(queen_index=queen_index, column_index=column_index)
             next_queen = self.get_queen_index_by_smallest_domain()
             if next_queen != -1:
                 self.__run__(queen_index=next_queen, depth_level=depth_level + 1)
