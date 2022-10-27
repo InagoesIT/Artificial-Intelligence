@@ -32,9 +32,8 @@ class Algorithm:
             self.model.queen_domains[element[0]].add(element[1])
 
     def build_solution(self, queen_index: int):
-        for column_index in self.model.queen_domains[queen_index]:
-            self.model.queen_column[queen_index] = column_index
-        self.model.pretty_print_model()
+        self.model.queen_column[queen_index] = list(self.model.queen_domains[queen_index])[0]
+        self.model.pretty_print_model(debug_mode=True)
         self.model.queen_column[queen_index] = -1
 
     def __run__(self, queen_index: int, depth_level: int):

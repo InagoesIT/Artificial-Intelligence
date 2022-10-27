@@ -3,6 +3,8 @@ import logging
 
 from algorithm import Algorithm
 
+TEST_FAILED__NOOB = "Test failed for pair ({}, {}) ({}, {}). Noob"
+
 logging.basicConfig(filename='results.log', level=logging.INFO)
 
 
@@ -14,9 +16,29 @@ class ProblemModel:
             self.queen_domains[block[0]].remove(block[1])
         self.queen_column = [-1 for _ in range(n)]
 
-    def pretty_print_model(self):
-        for index, domain in enumerate(self.queen_domains):
-            logging.info(f"Domain of queen with {index} is {domain}")
+    def pretty_print_model(self, debug_mode=False):
+        if debug_mode:
+            for index, domain in enumerate(self.queen_domains):
+                logging.info(f"Domain of queen with {index} is {domain}")
+
+        for index, column in enumerate(self.queen_column):
+            for index1, column1 in enumerate(self.queen_column):
+                if index == index1:
+                    continue
+                if abs(index - index1) == abs(column - column1):
+                    logging.error(TEST_FAILED__NOOB.format(index, column, index1, column1))
+                    return
+                if column == column1:
+                    logging.error(TEST_FAILED__NOOB.format(index, column, index1, column1))
+                    return
+
+        if debug_mode:
+            matrix = [[None] * self.n for _ in range(self.n)]
+            for index, column in enumerate(self.queen_column):
+                matrix[index][column] = 'xx'
+            for line in matrix:
+                logging.info(f"{line}")
+
         for index, column in enumerate(self.queen_column):
             logging.info(f"Queen with index {index} placed on column {column}")
 
