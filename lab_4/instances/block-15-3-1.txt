@@ -1,0 +1,2 @@
+letting n =  15
+letting blocks =  [[11, 10], [12, 9], [13, 8]]
