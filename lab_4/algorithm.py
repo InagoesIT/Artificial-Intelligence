@@ -35,7 +35,7 @@ class Algorithm:
         for el in self.model.queen_domains[queen_index]:
             self.model.queen_column[queen_index] = el
             break
-        self.model.pretty_print_model(debug_mode=True)
+        self.model.pretty_print_model()
         self.model.queen_column[queen_index] = -1
 
     def __run__(self, queen_index: int, depth_level: int):
@@ -60,3 +60,6 @@ class Algorithm:
     def run(self) -> None:
         start_queen = self.get_queen_index_by_smallest_domain()
         self.__run__(queen_index=start_queen, depth_level=1)
+        if self.solution_found and self.model.is_model_good:
+            return 0
+        return 1

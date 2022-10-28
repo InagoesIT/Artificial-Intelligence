@@ -57,10 +57,7 @@ def main():
     args = vars(parser.parse_args())
     model = ProblemModel(args["number_queens"], args["blocks"])
     algorithm = Algorithm(model)
-    algorithm.run()
-    if model.is_model_good:
-        sys.exit(0)
-    sys.exit(1)
+    sys.exit(algorithm.run())
 
 
 if __name__ == "__main__":

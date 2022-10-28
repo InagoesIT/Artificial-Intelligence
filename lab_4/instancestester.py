@@ -7,8 +7,8 @@ import re
 logging.basicConfig(filename='results.log', level=logging.INFO)
 
 
-class Tester:
-    def __init__(self, folder_name):
+class InstancesTester:
+    def __init__(self, folder_name=None):
         self.folder_name = folder_name
 
     def test(self):
@@ -22,11 +22,11 @@ class Tester:
                 n = int(re.sub("letting n =..", "", file_contents[0]))
                 blocks = literal_eval(re.sub("letting blocks =..", "", file_contents[1]))
 
-                script_caller = f"python n_queens.py -n {n} "
+                script_caller = f"python3 n_queens.py -n {n} "
                 for block in blocks:
                     script_caller += f"-b {block[0] - 1} {block[1] - 1} "
 
-                result = os.system(f"{script_caller}")
+                result = os.system(script_caller)
                 files_tested += 1
                 if result == 0:
                     files_passed += 1
@@ -37,7 +37,7 @@ class Tester:
 
 
 def main():
-    tester = Tester(folder_name='instances')
+    tester = InstancesTester(folder_name='instances')
     tester.test()
 
 
