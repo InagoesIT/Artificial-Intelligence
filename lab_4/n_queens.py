@@ -1,5 +1,6 @@
 import argparse
 import logging
+import sys
 
 from algorithm import Algorithm
 
@@ -15,6 +16,7 @@ class ProblemModel:
         for block in blocks:
             self.queen_domains[block[0]].remove(block[1])
         self.queen_column = [-1 for _ in range(n)]
+        self.is_model_good = True
 
     def pretty_print_model(self, debug_mode=False):
         if debug_mode:
@@ -27,9 +29,11 @@ class ProblemModel:
                     continue
                 if abs(index - index1) == abs(column - column1):
                     logging.error(TEST_FAILED__NOOB.format(index, column, index1, column1))
+                    self.is_model_good = False
                     return
                 if column == column1:
                     logging.error(TEST_FAILED__NOOB.format(index, column, index1, column1))
+                    self.is_model_good = False
                     return
 
         if debug_mode:
@@ -54,6 +58,9 @@ def main():
     model = ProblemModel(args["number_queens"], args["blocks"])
     algorithm = Algorithm(model)
     algorithm.run()
+    if model.is_model_good:
+        sys.exit(0)
+    sys.exit(1)
 
 
 if __name__ == "__main__":
