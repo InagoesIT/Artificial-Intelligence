@@ -11,21 +11,21 @@ class Tester:
         self.folder_name = folder_name
 
     def test(self):
-        # for file_name in glob.glob(f'{self.folder_name}/*.txt'):
-        #     logging.info("~~~~~~ The result for the file with the name =", file_name, "~~~~~~~~~")
+        for file_name in glob.glob(f'{self.folder_name}/*.txt'):
+            logging.info(f"~~~~~~ The result for the file with the name = {file_name} ~~~~~~~~~")
+            print(file_name)
+            with open(file_name) as file:
+                file_contents = file.read().split('\n')
+                n = int(file_contents[0])
+                blocks = literal_eval(file_contents[1])
 
-        # TO DO
-        # to test this again -> in log the test for this file kinda has queens attacking??
-        with open("instances/block-10-2-4.txt") as file:
-            file_contents = file.read().split('\n')
-            n = int(file_contents[0])
-            blocks = literal_eval(file_contents[1])
+                script_caller = f"python n_queens.py -n {n} "
+                for block in blocks:
+                    script_caller += f"-b {block[0] - 1} {block[1] - 1} "
 
-            script_caller = f"python n_queens.py -n {n} "
-            for block in blocks:
-                script_caller += f"-b {block[0]} {block[1]} "
+                os.system(script_caller)
 
-            os.system(script_caller)
+                logging.info(f"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
 
 
 def main():

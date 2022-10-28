@@ -32,6 +32,7 @@ class Algorithm:
             self.model.queen_domains[element[0]].add(element[1])
 
     def build_solution(self, queen_index: int):
+        print("LEN OF DOMAINS", len(self.model.queen_domains[queen_index]))
         self.model.queen_column[queen_index] = list(self.model.queen_domains[queen_index])[0]
         self.model.pretty_print_model(debug_mode=True)
         self.model.queen_column[queen_index] = -1
