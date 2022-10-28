@@ -7,7 +7,7 @@ class Algorithm:
         best_index = -1
         best_size = int(1e6)
         for index, domain in enumerate(self.model.queen_domains):
-            if len(domain) < best_size and self.model.queen_column[index] == -1:
+            if 0 < len(domain) < best_size and self.model.queen_column[index] == -1:
                 best_size = len(domain)
                 best_index = index
         return best_index

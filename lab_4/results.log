@@ -722,3 +722,202 @@ INFO:root:Queen with index 7 placed on column 9
 INFO:root:Queen with index 8 placed on column 3
 INFO:root:Queen with index 9 placed on column 6
 INFO:root:~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+INFO:root:~~~~~~ The result for the file with the name = instances\block-10-14-1.txt ~~~~~~~~~
+INFO:root:Domain of queen with 0 is set()
+INFO:root:Domain of queen with 1 is set()
+INFO:root:Domain of queen with 2 is set()
+INFO:root:Domain of queen with 3 is set()
+INFO:root:Domain of queen with 4 is set()
+INFO:root:Domain of queen with 5 is set()
+INFO:root:Domain of queen with 6 is set()
+INFO:root:Domain of queen with 7 is set()
+INFO:root:Domain of queen with 8 is set()
+INFO:root:Domain of queen with 9 is set()
+ERROR:root:Test failed for pair (6, 2) (9, -1). Noob
+INFO:root:~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+INFO:root:~~~~~~ The result for the file with the name = instances\block-10-2-4.txt ~~~~~~~~~
+INFO:root:Domain of queen with 0 is set()
+INFO:root:Domain of queen with 1 is set()
+INFO:root:Domain of queen with 2 is set()
+INFO:root:Domain of queen with 3 is set()
+INFO:root:Domain of queen with 4 is set()
+INFO:root:Domain of queen with 5 is set()
+INFO:root:Domain of queen with 6 is set()
+INFO:root:Domain of queen with 7 is set()
+INFO:root:Domain of queen with 8 is set()
+INFO:root:Domain of queen with 9 is set()
+ERROR:root:Test failed for pair (2, 6) (9, -1). Noob
+INFO:root:~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+INFO:root:~~~~~~ The result for the file with the name = instances\block-10-4-1.txt ~~~~~~~~~
+INFO:root:Domain of queen with 0 is set()
+INFO:root:Domain of queen with 1 is set()
+INFO:root:Domain of queen with 2 is set()
+INFO:root:Domain of queen with 3 is set()
+INFO:root:Domain of queen with 4 is set()
+INFO:root:Domain of queen with 5 is set()
+INFO:root:Domain of queen with 6 is set()
+INFO:root:Domain of queen with 7 is set()
+INFO:root:Domain of queen with 8 is set()
+INFO:root:Domain of queen with 9 is set()
+ERROR:root:Test failed for pair (1, -1) (3, 1). Noob
+INFO:root:~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+INFO:root:~~~~~~ The result for the file with the name = instances\block-10-4-3.txt ~~~~~~~~~
+INFO:root:Domain of queen with 0 is set()
+INFO:root:Domain of queen with 1 is set()
+INFO:root:Domain of queen with 2 is set()
+INFO:root:Domain of queen with 3 is set()
+INFO:root:Domain of queen with 4 is set()
+INFO:root:Domain of queen with 5 is set()
+INFO:root:Domain of queen with 6 is set()
+INFO:root:Domain of queen with 7 is set()
+INFO:root:Domain of queen with 8 is set()
+INFO:root:Domain of queen with 9 is {6}
+INFO:root:[None, 'xx', None, None, None, None, None, None, None, None]
+INFO:root:[None, None, None, None, None, 'xx', None, None, None, None]
+INFO:root:[None, None, None, None, None, None, None, 'xx', None, None]
+INFO:root:[None, None, 'xx', None, None, None, None, None, None, None]
+INFO:root:['xx', None, None, None, None, None, None, None, None, None]
+INFO:root:[None, None, None, None, None, None, None, None, 'xx', None]
+INFO:root:[None, None, None, None, 'xx', None, None, None, None, None]
+INFO:root:[None, None, None, None, None, None, None, None, None, 'xx']
+INFO:root:[None, None, None, 'xx', None, None, None, None, None, None]
+INFO:root:[None, None, None, None, None, None, 'xx', None, None, None]
+INFO:root:Queen with index 0 placed on column 1
+INFO:root:Queen with index 1 placed on column 5
+INFO:root:Queen with index 2 placed on column 7
+INFO:root:Queen with index 3 placed on column 2
+INFO:root:Queen with index 4 placed on column 0
+INFO:root:Queen with index 5 placed on column 8
+INFO:root:Queen with index 6 placed on column 4
+INFO:root:Queen with index 7 placed on column 9
+INFO:root:Queen with index 8 placed on column 3
+INFO:root:Queen with index 9 placed on column 6
+INFO:root:~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+INFO:root:~~~~~~ The result for the file with the name = instances\block-10-14-1.txt ~~~~~~~~~
+INFO:root:Domain of queen with 0 is set()
+INFO:root:Domain of queen with 1 is set()
+INFO:root:Domain of queen with 2 is set()
+INFO:root:Domain of queen with 3 is set()
+INFO:root:Domain of queen with 4 is set()
+INFO:root:Domain of queen with 5 is set()
+INFO:root:Domain of queen with 6 is set()
+INFO:root:Domain of queen with 7 is set()
+INFO:root:Domain of queen with 8 is set()
+INFO:root:Domain of queen with 9 is {3}
+INFO:root:[None, 'xx', None, None, None, None, None, None, None, None]
+INFO:root:[None, None, None, None, None, 'xx', None, None, None, None]
+INFO:root:[None, None, None, None, None, None, None, None, 'xx', None]
+INFO:root:['xx', None, None, None, None, None, None, None, None, None]
+INFO:root:[None, None, None, None, None, None, None, 'xx', None, None]
+INFO:root:[None, None, None, None, 'xx', None, None, None, None, None]
+INFO:root:[None, None, 'xx', None, None, None, None, None, None, None]
+INFO:root:[None, None, None, None, None, None, None, None, None, 'xx']
+INFO:root:[None, None, None, None, None, None, 'xx', None, None, None]
+INFO:root:[None, None, None, 'xx', None, None, None, None, None, None]
+INFO:root:Queen with index 0 placed on column 1
+INFO:root:Queen with index 1 placed on column 5
+INFO:root:Queen with index 2 placed on column 8
+INFO:root:Queen with index 3 placed on column 0
+INFO:root:Queen with index 4 placed on column 7
+INFO:root:Queen with index 5 placed on column 4
+INFO:root:Queen with index 6 placed on column 2
+INFO:root:Queen with index 7 placed on column 9
+INFO:root:Queen with index 8 placed on column 6
+INFO:root:Queen with index 9 placed on column 3
+INFO:root:~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+INFO:root:~~~~~~ The result for the file with the name = instances\block-10-2-4.txt ~~~~~~~~~
+INFO:root:Domain of queen with 0 is {3}
+INFO:root:Domain of queen with 1 is set()
+INFO:root:Domain of queen with 2 is set()
+INFO:root:Domain of queen with 3 is set()
+INFO:root:Domain of queen with 4 is set()
+INFO:root:Domain of queen with 5 is set()
+INFO:root:Domain of queen with 6 is set()
+INFO:root:Domain of queen with 7 is set()
+INFO:root:Domain of queen with 8 is set()
+INFO:root:Domain of queen with 9 is set()
+INFO:root:[None, None, None, 'xx', None, None, None, None, None, None]
+INFO:root:[None, 'xx', None, None, None, None, None, None, None, None]
+INFO:root:[None, None, None, None, None, None, None, None, None, 'xx']
+INFO:root:[None, None, None, None, None, 'xx', None, None, None, None]
+INFO:root:[None, None, None, None, None, None, None, None, 'xx', None]
+INFO:root:[None, None, None, None, 'xx', None, None, None, None, None]
+INFO:root:[None, None, None, None, None, None, None, 'xx', None, None]
+INFO:root:['xx', None, None, None, None, None, None, None, None, None]
+INFO:root:[None, None, 'xx', None, None, None, None, None, None, None]
+INFO:root:[None, None, None, None, None, None, 'xx', None, None, None]
+INFO:root:Queen with index 0 placed on column 3
+INFO:root:Queen with index 1 placed on column 1
+INFO:root:Queen with index 2 placed on column 9
+INFO:root:Queen with index 3 placed on column 5
+INFO:root:Queen with index 4 placed on column 8
+INFO:root:Queen with index 5 placed on column 4
+INFO:root:Queen with index 6 placed on column 7
+INFO:root:Queen with index 7 placed on column 0
+INFO:root:Queen with index 8 placed on column 2
+INFO:root:Queen with index 9 placed on column 6
+INFO:root:~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+INFO:root:~~~~~~ The result for the file with the name = instances\block-10-4-1.txt ~~~~~~~~~
+INFO:root:Domain of queen with 0 is set()
+INFO:root:Domain of queen with 1 is set()
+INFO:root:Domain of queen with 2 is {8}
+INFO:root:Domain of queen with 3 is set()
+INFO:root:Domain of queen with 4 is set()
+INFO:root:Domain of queen with 5 is set()
+INFO:root:Domain of queen with 6 is set()
+INFO:root:Domain of queen with 7 is set()
+INFO:root:Domain of queen with 8 is set()
+INFO:root:Domain of queen with 9 is set()
+INFO:root:[None, None, 'xx', None, None, None, None, None, None, None]
+INFO:root:[None, None, None, None, None, 'xx', None, None, None, None]
+INFO:root:[None, None, None, None, None, None, None, None, 'xx', None]
+INFO:root:[None, 'xx', None, None, None, None, None, None, None, None]
+INFO:root:[None, None, None, None, None, None, None, 'xx', None, None]
+INFO:root:['xx', None, None, None, None, None, None, None, None, None]
+INFO:root:[None, None, None, 'xx', None, None, None, None, None, None]
+INFO:root:[None, None, None, None, None, None, 'xx', None, None, None]
+INFO:root:[None, None, None, None, 'xx', None, None, None, None, None]
+INFO:root:[None, None, None, None, None, None, None, None, None, 'xx']
+INFO:root:Queen with index 0 placed on column 2
+INFO:root:Queen with index 1 placed on column 5
+INFO:root:Queen with index 2 placed on column 8
+INFO:root:Queen with index 3 placed on column 1
+INFO:root:Queen with index 4 placed on column 7
+INFO:root:Queen with index 5 placed on column 0
+INFO:root:Queen with index 6 placed on column 3
+INFO:root:Queen with index 7 placed on column 6
+INFO:root:Queen with index 8 placed on column 4
+INFO:root:Queen with index 9 placed on column 9
+INFO:root:~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+INFO:root:~~~~~~ The result for the file with the name = instances\block-10-4-3.txt ~~~~~~~~~
+INFO:root:Domain of queen with 0 is set()
+INFO:root:Domain of queen with 1 is set()
+INFO:root:Domain of queen with 2 is set()
+INFO:root:Domain of queen with 3 is set()
+INFO:root:Domain of queen with 4 is set()
+INFO:root:Domain of queen with 5 is set()
+INFO:root:Domain of queen with 6 is set()
+INFO:root:Domain of queen with 7 is set()
+INFO:root:Domain of queen with 8 is set()
+INFO:root:Domain of queen with 9 is {6}
+INFO:root:[None, 'xx', None, None, None, None, None, None, None, None]
+INFO:root:[None, None, None, None, None, 'xx', None, None, None, None]
+INFO:root:[None, None, None, None, None, None, None, 'xx', None, None]
+INFO:root:[None, None, 'xx', None, None, None, None, None, None, None]
+INFO:root:['xx', None, None, None, None, None, None, None, None, None]
+INFO:root:[None, None, None, None, None, None, None, None, 'xx', None]
+INFO:root:[None, None, None, None, 'xx', None, None, None, None, None]
+INFO:root:[None, None, None, None, None, None, None, None, None, 'xx']
+INFO:root:[None, None, None, 'xx', None, None, None, None, None, None]
+INFO:root:[None, None, None, None, None, None, 'xx', None, None, None]
+INFO:root:Queen with index 0 placed on column 1
+INFO:root:Queen with index 1 placed on column 5
+INFO:root:Queen with index 2 placed on column 7
+INFO:root:Queen with index 3 placed on column 2
+INFO:root:Queen with index 4 placed on column 0
+INFO:root:Queen with index 5 placed on column 8
+INFO:root:Queen with index 6 placed on column 4
+INFO:root:Queen with index 7 placed on column 9
+INFO:root:Queen with index 8 placed on column 3
+INFO:root:Queen with index 9 placed on column 6
+INFO:root:~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
