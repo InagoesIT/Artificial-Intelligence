@@ -33,7 +33,9 @@ class Algorithm:
 
     def build_solution(self, queen_index: int):
         print("LEN OF DOMAINS", len(self.model.queen_domains[queen_index]))
-        self.model.queen_column[queen_index] = list(self.model.queen_domains[queen_index])[0]
+        for el in self.model.queen_domains[queen_index]:
+            self.model.queen_column[queen_index] = el
+            break
         self.model.pretty_print_model(debug_mode=True)
         self.model.queen_column[queen_index] = -1
 
