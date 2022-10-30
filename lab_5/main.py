@@ -1,7 +1,7 @@
 import os
 
 from problem.parser import Parser
-from solver.nash_algorithm import NashAlgorithm
+from solver.nash_equilibria import NashAlgorithm
 
 if __name__ == '__main__':
     parser = Parser(os.path.join(".", "input", "data.txt"))

@@ -1,5 +1,5 @@
-from solution.nash_equilibria import NashSolution
-from solver.algorithm_contract import Algorithm
+from solution.contract import NashSolution
+from solver.contract import Algorithm
 
 
 class NashAlgorithm(Algorithm):
