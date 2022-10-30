@@ -1,10 +1,6 @@
-from solution.solution import Solution
-
-
-class NashSolution(Solution):
-    def __init__(self, equilibrias):
-        self.equilibrias = equilibrias
-
-    def pretty_print(self):
-        for eq in self.equilibrias:
-            print(f"Nash equilibria found on {eq}")
+class Solution:
+    def pretty_print(self) -> None:
+        """
+        prints the solution to stdout
+        """
+        pass

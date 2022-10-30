@@ -1,4 +1,4 @@
-from solution.contract import NashSolution
+from solution.nash_equilibria import NashSolution
 from solver.contract import Algorithm
 
 
