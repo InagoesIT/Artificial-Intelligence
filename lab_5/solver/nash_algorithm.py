@@ -1,16 +1,17 @@
 from solution.nash_equilibria import NashSolution
+from solver.algorithm_contract import Algorithm
 
 
-class Algorithm:
+class NashAlgorithm(Algorithm):
     def __init__(self, model) -> None:
-        self.model = model
+        super().__init__(model)
         self.best_moves = [[[False, False] for _ in range(self.model.m)]
                            for _ in range(self.model.n)
                            ]
         self.n = len(self.model.row_names)
         self.m = len(self.model.column_names)
 
-    def get_nash_equilibria_states(self) -> NashSolution:
+    def run(self) -> NashSolution:
         first_player_choices = dict()
         for column in range(self.m):
             current_best = -1

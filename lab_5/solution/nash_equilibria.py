@@ -1,4 +1,7 @@
-class NashSolution:
+from solution.solution import Solution
+
+
+class NashSolution(Solution):
     def __init__(self, equilibrias):
         self.equilibrias = equilibrias
 
