@@ -6,10 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="edb3b0f7-42d2-4e4f-903d-089abbe14e0a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/solution/nash_equilibria.py" beforeDir="false" afterPath="$PROJECT_DIR$/solution/contract.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/solver/algorithm_contract.py" beforeDir="false" afterPath="$PROJECT_DIR$/solver/contract.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/solver/nash_algorithm.py" beforeDir="false" afterPath="$PROJECT_DIR$/solver/nash_equilibria.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/solver/nash_equilibria.py" beforeDir="false" afterPath="$PROJECT_DIR$/solver/nash_equilibria.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,7 +83,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1667117424402</updated>
-      <workItem from="1667117426805" duration="4379000" />
+      <workItem from="1667117426805" duration="5467000" />
     </task>
     <servers />
   </component>
@@ -109,13 +106,13 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/solver/nash_equilibria.py</url>
-          <line>46</line>
-          <option name="timeStamp" value="2" />
+          <line>41</line>
+          <option name="timeStamp" value="4" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/lab_5$main.coverage" NAME="main Coverage Results" MODIFIED="1667121516280" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/lab_5$main.coverage" NAME="main Coverage Results" MODIFIED="1667122804473" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

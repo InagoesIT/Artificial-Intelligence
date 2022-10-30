@@ -11,34 +11,33 @@ class NashAlgorithm(Algorithm):
         self.n = len(self.model.row_names)
         self.m = len(self.model.column_names)
 
+    def get_best_choices(self, max_key, max_value, player):
+        return_dict = dict()
+        for key in range(max_key):
+            current_best = -1
+            for line in range(max_value):
+                current_value = self.model.values[line][key][player]
+                if current_value > current_best:
+                    current_best = current_value
+                    return_dict[key] = [line]
+                elif current_best == current_value:
+                    return_dict[key].append(line)
+        return return_dict
+
+    def mark_best_states(self, choices, player):
+        for item in choices.items():
+            for value in item[1]:
+                if player == 0:
+                    self.best_moves[value][item[0]][player] = True
+                else:
+                    self.best_moves[item[0]][value][player] = True
+
     def run(self) -> NashSolution:
-        first_player_choices = dict()
-        for column in range(self.m):
-            current_best = -1
-            for line in range(self.n):
-                current_value = self.model.values[line][column][0]
-                if current_value > current_best:
-                    first_player_choices[column] = [line]
-                elif current_best == current_value:
-                    first_player_choices[column].append(line)
+        first_player_choices = self.get_best_choices(self.m, self.n, 0)
+        second_player_choices = self.get_best_choices(self.n, self.m, 1)
 
-        second_player_choices = dict()
-        for line in range(self.n):
-            current_best = -1
-            for column in range(self.m):
-                current_value = self.model.values[line][column][1]
-                if current_value > current_best:
-                    second_player_choices[line] = [column]
-                elif current_best == current_value:
-                    second_player_choices[line].append(column)
-
-        for item in first_player_choices.items():
-            for line in item[1]:
-                self.best_moves[line][item[0]][0] = True
-
-        for item in second_player_choices.items():
-            for column in item[1]:
-                self.best_moves[item[0]][column][1] = True
+        self.mark_best_states(first_player_choices, 0)
+        self.mark_best_states(second_player_choices, 1)
 
         nash_equilibrias = []
         for line in range(self.n):
