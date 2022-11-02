@@ -8,11 +8,12 @@ class NashAlgorithm(Algorithm):
         self.best_moves = [[[False, False] for _ in range(self.model.m)]
                            for _ in range(self.model.n)
                            ]
-        self.n = len(self.model.row_names)
-        self.m = len(self.model.column_names)
+        self.n = self.model.n
+        self.m = self.model.m
 
     def get_best_choices(self, max_key, max_value, player):
-        return_dict = dict()
+        return_dict = dict(map(lambda x: (x, list()), range(max_key)))
+
         for key in range(max_key):
             current_best = -1
             for line in range(max_value):
