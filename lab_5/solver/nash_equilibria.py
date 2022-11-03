@@ -12,7 +12,7 @@ class NashAlgorithm(Algorithm):
         self.m = self.model.m
 
     def get_best_choices(self, max_key, max_value, player):
-        return_dict = dict(map(lambda x: (x, list()), range(max_key)))
+        return_dict = {x: list() for x in range(max_key)}
 
         for key in range(max_key):
             current_best = -1

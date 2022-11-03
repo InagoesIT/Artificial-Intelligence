@@ -9,7 +9,7 @@ class DominantStrategyAlgorithm(Algorithm):
         self.column_nr = self.model.m
 
     def get_best_strategies_for(self, player, player_strategies_nr, opponent_strategies_nr):
-        best_strategies = dict(map(lambda index: (index, [0]), range(opponent_strategies_nr)))
+        best_strategies = {index: [0] for index in range(opponent_strategies_nr)}
 
         for opponent_strategy_index in range(opponent_strategies_nr):
             for player_strategy_index in range(1, player_strategies_nr):
@@ -42,11 +42,13 @@ class DominantStrategyAlgorithm(Algorithm):
         return common_strategies
 
     def run(self):
-        best_strategies_first_player = self.get_best_strategies_for(player=0, player_strategies_nr=self.row_nr, opponent_strategies_nr=self.column_nr)
+        best_strategies_first_player = self.get_best_strategies_for(player=0, player_strategies_nr=self.row_nr,
+                                                                    opponent_strategies_nr=self.column_nr)
         dominant_strategies_first_player = self.get_dominant_strategies_for(best_strategies=best_strategies_first_player)
 
-        best_strategies_second_player = self.get_best_strategies_for(player=1, player_strategies_nr=self.column_nr, opponent_strategies_nr=self.row_nr)
+        best_strategies_second_player = self.get_best_strategies_for(player=1, player_strategies_nr=self.column_nr,
+                                                                     opponent_strategies_nr=self.row_nr)
         dominant_strategies_second_player = self.get_dominant_strategies_for(best_strategies=best_strategies_second_player)
 
-        result = dict({0: dominant_strategies_first_player, 1: dominant_strategies_second_player})
+        result = {0: dominant_strategies_first_player, 1: dominant_strategies_second_player}
         return DominantStrategy(result, self.model)
