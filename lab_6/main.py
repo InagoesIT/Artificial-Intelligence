@@ -28,10 +28,10 @@ def encode_results(dataset):
 
 
 def get_weights_and_biases(hidden_size, input_size=4, output_size=3):
-    weights = np.array([[[rand.uniform(-1, 1) for _ in range(input_size)] for _ in range(hidden_size)],
-                        [[rand.uniform(-1, 1) for _ in range(hidden_size)] for _ in range(output_size)]], dtype=object)
-    biases = np.array([[rand.uniform(-1, 1) for _ in range(hidden_size)],
-                       [rand.uniform(-1, 1) for _ in range(output_size)]], dtype=object)
+    weights = np.array([[[rand.uniform(-0.1, 0.1) for _ in range(input_size)] for _ in range(hidden_size)],
+                        [[rand.uniform(-0.1, 0.1) for _ in range(hidden_size)] for _ in range(output_size)]], dtype=object)
+    biases = np.array([[rand.uniform(-0.1, 0.1) for _ in range(hidden_size)],
+                       [rand.uniform(-0.1, 0.1) for _ in range(output_size)]], dtype=object)
 
     return weights, biases
 

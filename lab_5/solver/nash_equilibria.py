@@ -11,13 +11,16 @@ class NashAlgorithm(Algorithm):
         self.n = self.model.n
         self.m = self.model.m
 
-    def get_best_choices(self, max_key, max_value, player):
+    def get_best_choices(self, max_key, max_value, player, must_invert: bool = False):
         return_dict = {x: list() for x in range(max_key)}
 
         for key in range(max_key):
             current_best = -1
             for line in range(max_value):
-                current_value = self.model.values[line][key][player]
+                if must_invert:
+                    current_value = self.model.values[key][line][player]
+                else:
+                    current_value = self.model.values[line][key][player]
                 if current_value > current_best:
                     current_best = current_value
                     return_dict[key] = [line]
@@ -35,7 +38,7 @@ class NashAlgorithm(Algorithm):
 
     def run(self) -> NashSolution:
         first_player_choices = self.get_best_choices(self.m, self.n, 0)
-        second_player_choices = self.get_best_choices(self.n, self.m, 1)
+        second_player_choices = self.get_best_choices(self.n, self.m, 1, must_invert=True)
 
         self.mark_best_states(first_player_choices, 0)
         self.mark_best_states(second_player_choices, 1)
