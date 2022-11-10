@@ -6,18 +6,33 @@ import numpy as np
 import random as rand
 
 
-def sigmoid_function(input_z):
+def sigmoid(input_z):
     return 1 / (1 + pow(math.e, -input_z))
 
 
 def sigmoid_derivative(input_z):
-    sigmoid_result = sigmoid_function(input_z)
+    sigmoid_result = sigmoid(input_z)
     return sigmoid_result * (1 - sigmoid_result)
 
 
 def get_error(results, outputs):
-    # add sum after subtraction
-    return np.divide(np.power(np.subtract(results, outputs), 2), 2)
+    return np.divide(np.sum(np.power(np.subtract(results, outputs), 2), 2))
+
+
+def forward_prop(weights, biases, instances):
+    z0 = np.add(weights[0].dot(instances.transpose()), biases[0].reshape(100, 1))
+    y0 = sigmoid(z0)
+    z1 = np.add(np.dot(weights[1], y0), biases[1].reshape(10, 1))
+    y1 = sigmoid(z1)
+    return z0, y0, z1, y1
+
+
+def forward_prop_instance(weights, biases, instance):
+    z0 = np.add(weights[0].dot(instance), biases[0])
+    y0 = sigmoid(z0)
+    z1 = np.add(np.dot(weights[1], y0), biases[1])
+    y1 = sigmoid(z1)
+    return z0, y0, z1, y1
 
 
 # TO DO: transform a name into an (3, 1) vector
