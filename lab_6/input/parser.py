@@ -1,5 +1,7 @@
 from collections import defaultdict
 
+import numpy as np
+
 
 class Parser:
     def __init__(self, filename) -> None:

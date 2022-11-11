@@ -20,9 +20,10 @@ def get_error(results, outputs):
 
 
 def forward_prop(weights, biases, instances):
-    z0 = np.add(weights[0].dot(instances.transpose()), biases[0].reshape(100, 1))
+    print(instances.dtype)
+    z0 = np.add(weights[0].dot(instances.transpose()), biases[0].reshape(12, 1))
     y0 = sigmoid(z0)
-    z1 = np.add(np.dot(weights[1], y0), biases[1].reshape(10, 1))
+    z1 = np.add(np.dot(weights[1], y0), biases[1].reshape(3, 1))
     y1 = sigmoid(z1)
     return z0, y0, z1, y1
 
@@ -32,7 +33,7 @@ def forward_prop_instance(weights, biases, instance):
     y0 = sigmoid(z0)
     z1 = np.add(np.dot(weights[1], y0), biases[1])
     y1 = sigmoid(z1)
-    return z0, y0, z1, y1
+    return y1
 
 
 # TO DO: transform a name into an (3, 1) vector
@@ -43,10 +44,10 @@ def encode_results(dataset):
 
 
 def get_weights_and_biases(hidden_size, input_size=4, output_size=3):
-    weights = np.array([[[rand.uniform(-0.1, 0.1) for _ in range(input_size)] for _ in range(hidden_size)],
-                        [[rand.uniform(-0.1, 0.1) for _ in range(hidden_size)] for _ in range(output_size)]], dtype=object)
-    biases = np.array([[rand.uniform(-0.1, 0.1) for _ in range(hidden_size)],
-                       [rand.uniform(-0.1, 0.1) for _ in range(output_size)]], dtype=object)
+    weights = np.array([np.array([[rand.uniform(-0.1, 0.1) for _ in range(input_size)] for _ in range(hidden_size)]),
+                       np.array([[rand.uniform(-0.1, 0.1) for _ in range(hidden_size)] for _ in range(output_size)])], dtype=object)
+    biases = np.array([np.array([rand.uniform(-0.1, 0.1) for _ in range(hidden_size)]),
+                      np.array([rand.uniform(-0.1, 0.1) for _ in range(output_size)])], dtype=object)
 
     return weights, biases
 
@@ -54,18 +55,31 @@ def get_weights_and_biases(hidden_size, input_size=4, output_size=3):
 def train(nr_epochs=25, learning_rate=0.6):
     pass
 
+def separate_data(train_data):
+    train_data_no_res = []
+    out_data = []
+    for line in train_data:
+        line_arr = line[:-1]
+        out_arr = line[-1]
+        train_data_no_res.append(line_arr)
+        out_data.append(out_arr)
+    return np.array(train_data_no_res), np.array(out_data)
+
 
 def main():
     data_file = os.path.join("input", "iris.data")
     test_parser = Parser(data_file)
     train_data, test_data = test_parser.parse()
 
-    print(train_data)
-    print(test_data)
+    # print(train_data)
+    # print(test_data)
     hidden_size = 12
     weights, biases = get_weights_and_biases(hidden_size)
-    print(weights)
-    print(biases)
+    # print(weights)
+    # print(biases)
+
+    input_train, target_train = separate_data(train_data)
+    print(forward_prop(weights, biases, input_train))
 
 
 if __name__ == '__main__':
