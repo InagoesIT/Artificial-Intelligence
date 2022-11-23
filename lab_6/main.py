@@ -5,6 +5,17 @@ from input.parser import Parser
 import numpy as np
 import random as rand
 import matplotlib as plt
+from tabulate import tabulate
+
+IRIS_SETOSA = "Iris-setosa"
+IRIS_VERSICOLOR = "Iris-versicolor"
+IRIS_VIRGINICA = "Iris-virginica"
+IRIS_SETOSA_INDEX = 0
+IRIS_VERSICOLOR_INDEX = 1
+IRIS_VIRGINICA_INDEX = 2
+IRIS_SETOSA_ARR = [1, 0, 0]
+IRIS_VERSICOLOR_ARR = [0, 1, 0]
+IRIS_VIRGINICA_ARR = [0, 0, 1]
 
 
 def sigmoid(input_z):
@@ -37,13 +48,6 @@ def forward_prop_instance(weights, biases, instance):
 
 
 def get_one_hot_target(target):
-    IRIS_SETOSA = "Iris-setosa"
-    IRIS_VERSICOLOR = "Iris-versicolor"
-    IRIS_VIRGINICA = "Iris-virginica"
-    IRIS_SETOSA_ARR = [1, 0, 0]
-    IRIS_VERSICOLOR_ARR = [0, 1, 0]
-    IRIS_VIRGINICA_ARR = [0, 0, 1]
-
     if target == IRIS_SETOSA:
         return IRIS_SETOSA_ARR
     elif target == IRIS_VERSICOLOR:
@@ -113,8 +117,8 @@ def train(train_data, train_target, test_data, test_target, weights, biases, nr_
             #                                    targets=batches_target[batch_index])
             # weights, biases = update_params(weights, biases, dw1, dw2, db1, db2, learning_rate)
 
-        training_accuracy.append(get_accuracy(weights, biases, train_data, train_target))
-        test_accuracy.append(get_accuracy(weights, biases, test_data, test_target))
+        training_accuracy.append(get_accuracy(weights, biases, train_data, train_target)[0])
+        test_accuracy.append(get_accuracy(weights, biases, test_data, test_target)[0])
     plot_accuracies([i for i in range(nr_epochs)], training_accuracy, test_accuracy, "graph")
 
     return weights, biases
@@ -122,18 +126,20 @@ def train(train_data, train_target, test_data, test_target, weights, biases, nr_
 
 def get_accuracy(weights, biases, dataset_data, dataset_target):
     wrong_classified_nr = 0
+    wrong_classified_data = []
     dataset_size = len(dataset_data)
 
     for i in range(dataset_size):
         label = dataset_target[i]
-        z0, y0, z1, y1 = forward_prop_instance(weights, biases, dataset_data[i])
+        z0, y0, z1, y1 = forward_prop_instance(weights, biases, np.array(dataset_data[i], dtype=float))
         y1 = get_tuned_outputs(y1)
         label_arr = get_one_hot_target(label)
 
         if not np.array_equal(y1, label_arr):
             wrong_classified_nr += 1
+            wrong_classified_data += [[dataset_data[i], label_arr, list(y1)]]
 
-    return (dataset_size - wrong_classified_nr) / dataset_size * 100
+    return (dataset_size - wrong_classified_nr) / dataset_size * 100, wrong_classified_data
 
 
 def get_predictions(weights, biases, dataset_data):
@@ -143,22 +149,51 @@ def get_predictions(weights, biases, dataset_data):
 
 
 def get_confusion_matrix(weights, biases, dataset_data, dataset_target):
-    predictions = get_predictions(weights, biases, dataset_data)
-    targets = get_one_hot_batch(dataset_target)
-    confusion_matrix = {}
+    wrong_count, wrong_classified_instances = get_accuracy(weights, biases, dataset_data, dataset_target)
+    confusion_matrix = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
 
-    for instance_index in range(len(predictions)):
-        pass
+    for instance in wrong_classified_instances:
+        if instance[1] == IRIS_SETOSA_ARR:
+            if instance[2] == IRIS_VERSICOLOR_ARR:
+                confusion_matrix[0][1] += 1
+            else:
+                confusion_matrix[0][2] += 1
+        elif instance[1] == IRIS_VERSICOLOR_ARR:
+            if instance[2] == IRIS_SETOSA_ARR:
+                confusion_matrix[1][0] += 1
+            else:
+                confusion_matrix[1][2] += 1
+        else:
+            if instance[2] == IRIS_SETOSA_ARR:
+                confusion_matrix[2][0] += 1
+            else:
+                confusion_matrix[2][1] += 1
+
+    confusion_matrix[0][0] = dataset_target.count(IRIS_SETOSA) - confusion_matrix[0][1] - confusion_matrix[0][2]
+    confusion_matrix[1][1] = dataset_target.count(IRIS_VERSICOLOR) - confusion_matrix[1][0] - confusion_matrix[1][2]
+    confusion_matrix[2][2] = dataset_target.count(IRIS_VIRGINICA) - confusion_matrix[2][0] - confusion_matrix[2][1]
+
+    table = [["", IRIS_SETOSA, IRIS_VERSICOLOR, IRIS_VIRGINICA],
+             [IRIS_SETOSA, confusion_matrix[0][0], confusion_matrix[0][1], confusion_matrix[0][2]],
+             [IRIS_VERSICOLOR, confusion_matrix[1][0], confusion_matrix[1][1], confusion_matrix[1][2]],
+             [IRIS_VIRGINICA, confusion_matrix[2][0], confusion_matrix[2][1], confusion_matrix[2][2]]
+             ]
+    print()
+    print("~"*20 + "THE CONFUSION MATRIX" + "~"*20)
+    print(tabulate(table))
+    return confusion_matrix
 
 
 def main():
     data_file = os.path.join("input", "iris.data")
     test_parser = Parser(data_file)
-    train_data, train_target, test_data, train_target = test_parser.parse()
+    train_data, train_target, test_data, test_target = test_parser.parse()
 
     hidden_size = 24
     weights, biases = get_weights_and_biases(hidden_size)
     batches_data, batches_target = get_batches(train_data, train_target, 20)
+    print(f"accuracy without any training: {get_accuracy(weights, biases, train_data, train_target)[0]}")
+    get_confusion_matrix(weights, biases, train_data, train_target)
 
 
 if __name__ == '__main__':
