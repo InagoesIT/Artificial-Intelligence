@@ -36,4 +36,3 @@ class Parser:
             test_target += ([item[0]] * test_size)
 
         return train_data, train_target, test_data, test_target
-
