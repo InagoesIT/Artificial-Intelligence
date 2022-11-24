@@ -4,7 +4,7 @@ import os
 from input.parser import Parser
 import numpy as np
 import random as rand
-import matplotlib as plt
+import matplotlib.pyplot as plt
 from tabulate import tabulate
 
 IRIS_SETOSA = "Iris-setosa"
@@ -18,13 +18,21 @@ IRIS_VERSICOLOR_ARR = [0, 1, 0]
 IRIS_VIRGINICA_ARR = [0, 0, 1]
 
 
-def sigmoid(input_z):
+def sigmoid_value(input_z):
     return 1 / (1 + pow(math.e, -input_z))
 
 
-def sigmoid_derivative(input_z):
+def sigmoid_derivative_value(input_z):
     sigmoid_result = sigmoid(input_z)
     return sigmoid_result * (1 - sigmoid_result)
+
+
+def sigmoid(values):
+    return np.array([1 / (1 + pow(math.e, -_)) for _ in values])
+
+
+def sigmoid_derivative(outputs):
+    return np.array([sigmoid(_) * (1 - sigmoid(_)) for _ in outputs])
 
 
 def get_error(results, outputs):
@@ -58,12 +66,11 @@ def get_one_hot_target(target):
 
 
 def get_one_hot_batch(batch_targets):
-    transformed = []
+    result = [np.array(get_one_hot_target(batch_targets[0]))]
+    for i in range(1, len(batch_targets)):
+        result = np.append(result, [get_one_hot_target(batch_targets[i])], axis=0)
 
-    for item in batch_targets:
-        transformed.append(get_one_hot_target(item))
-
-    return np.array(transformed)
+    return result.transpose()
 
 
 def get_weights_and_biases(hidden_size, input_size=4, output_size=3):
@@ -103,8 +110,36 @@ def plot_accuracies(nr_epochs, training_accuracy, test_accuracy, graph_name):
     plt.savefig(graph_name)
 
 
-def train(train_data, train_target, test_data, test_target, weights, biases, nr_epochs=25, learning_rate=0.6,
-          batch_size=20):
+def backward_prop(z0, inputs, y0, y1, weights_level_2, targets):
+    # dC/dy * dy/dz
+    # shape = 3, 20
+    dz2 = y1 * np.subtract(1, y1) * np.subtract(y1, targets)
+    # dy/dz * (error for every neuron * weights for it)
+    # shape = 24, 20 * 24, 20(20, 4 dot 4, 24)  =>  24, 20
+    dz1 = dz2.transpose().dot(weights_level_2).transpose()
+    # (hidden -> output)
+    # 4, 20 * 20, 24 = 4, 24
+    dw2 = dz2.dot(y0.transpose())
+    db2 = np.sum(dz2, axis=1)
+    # (input -> hidden)
+    # 24, 20 * 24, 4 = 24, 4
+    dw1 = dz1.dot(inputs)
+    db1 = np.sum(dz1, axis=1)
+
+    return dw1, dw2, db1, db2
+
+
+def update_params(weights, biases, dw1, dw2, db1, db2, learning_rate):
+    weights[0] = weights[0] - learning_rate * dw1
+    weights[1] = weights[1] - learning_rate * dw2
+    biases[0] = biases[0] - learning_rate * db1
+    biases[1] = biases[1] - learning_rate * db2
+
+    return weights, biases
+
+
+def train(train_data, train_target, test_data, test_target, weights, biases, nr_epochs=400, learning_rate=0.35,
+          batch_size=10):
     batches_data, batches_target = get_batches(train_data, train_target, batch_size)
     training_accuracy = []
     test_accuracy = []
@@ -112,14 +147,15 @@ def train(train_data, train_target, test_data, test_target, weights, biases, nr_
     for epoch_nr in range(nr_epochs):
         for batch_index in range(len(batches_target)):
             z0, y0, z1, y1 = forward_prop(weights, biases, batches_data[batch_index])
-            # TODO George will make these 2 work
-            # dw1, dw2, db1, db2 = backward_prop(z0, batches_data[batch_index], y0, y1, weights_level_2=weights[1],
-            #                                    targets=batches_target[batch_index])
-            # weights, biases = update_params(weights, biases, dw1, dw2, db1, db2, learning_rate)
+            dw1, dw2, db1, db2 = backward_prop(z0, batches_data[batch_index], y0, y1, weights_level_2=weights[1],
+                                               targets=batches_target[batch_index])
+            weights, biases = update_params(weights, biases, dw1, dw2, db1, db2, learning_rate)
 
         training_accuracy.append(get_accuracy(weights, biases, train_data, train_target)[0])
         test_accuracy.append(get_accuracy(weights, biases, test_data, test_target)[0])
+
     plot_accuracies([i for i in range(nr_epochs)], training_accuracy, test_accuracy, "graph")
+    get_confusion_matrix(weights, biases, train_data, train_target)
 
     return weights, biases
 
@@ -179,7 +215,7 @@ def get_confusion_matrix(weights, biases, dataset_data, dataset_target):
              [IRIS_VIRGINICA, confusion_matrix[2][0], confusion_matrix[2][1], confusion_matrix[2][2]]
              ]
     print()
-    print("~"*20 + "THE CONFUSION MATRIX" + "~"*20)
+    print("~" * 20 + "THE CONFUSION MATRIX" + "~" * 20)
     print(tabulate(table))
     return confusion_matrix
 
@@ -191,9 +227,10 @@ def main():
 
     hidden_size = 24
     weights, biases = get_weights_and_biases(hidden_size)
-    batches_data, batches_target = get_batches(train_data, train_target, 20)
+    # batches_data, batches_target = get_batches(train_data, train_target, 20)
     print(f"accuracy without any training: {get_accuracy(weights, biases, train_data, train_target)[0]}")
     get_confusion_matrix(weights, biases, train_data, train_target)
+    train(train_data, train_target, test_data, test_target, weights, biases)
 
 
 if __name__ == '__main__':
