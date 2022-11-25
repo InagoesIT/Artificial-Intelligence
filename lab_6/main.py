@@ -45,6 +45,16 @@ def forward_prop(weights, biases, instances):
     z1 = np.add(np.dot(weights[1], y0), biases[1].reshape(3, 1))
     y1 = sigmoid(z1)
     return z0, y0, z1, y1
+    # z0 = np.add(weights[0].dot(instances.transpose()), biases[0].reshape(24, 1))
+    # y0 = sigmoid(z0)
+    # z1 = np.add(np.dot(weights[1], y0), biases[1].reshape(3, 1))
+    # y1 = softmax(z1)
+    # return z0, y0, z1, y1
+
+
+def softmax(values):
+    inputs_sum = sum(pow(math.e, value) for value in values)
+    return np.array([pow(math.e, value) / (inputs_sum + pow(1, 0.00000001)) for value in values])
 
 
 def forward_prop_instance(weights, biases, instance):
@@ -53,6 +63,11 @@ def forward_prop_instance(weights, biases, instance):
     z1 = np.add(np.dot(weights[1], y0), biases[1])
     y1 = sigmoid(z1)
     return z0, y0, z1, y1
+    # z0 = np.add(weights[0].dot(instance), biases[0])
+    # y0 = sigmoid(z0)
+    # z1 = np.add(np.dot(weights[1], y0), biases[1])
+    # y1 = softmax(z1)
+    # return z0, y0, z1, y1
 
 
 def get_one_hot_target(target):
@@ -110,23 +125,40 @@ def plot_accuracies(nr_epochs, training_accuracy, test_accuracy, graph_name):
     plt.savefig(graph_name)
 
 
-def backward_prop(z0, inputs, y0, y1, weights_level_2, targets):
+def backward_prop(inputs, y0, y1, weights_level_2, targets):
     # dC/dy * dy/dz
-    # shape = 3, 20
+    # shape = 3, 10
     dz2 = y1 * np.subtract(1, y1) * np.subtract(y1, targets)
     # dy/dz * (error for every neuron * weights for it)
-    # shape = 24, 20 * 24, 20(20, 4 dot 4, 24)  =>  24, 20
-    dz1 = dz2.transpose().dot(weights_level_2).transpose()
+    # shape = 24, 10 * 24, 10(10, 4 dot 4, 24)  =>  24, 10
+    dz1 = y0 * np.subtract(1, y0) * dz2.transpose().dot(weights_level_2).transpose()
     # (hidden -> output)
-    # 4, 20 * 20, 24 = 4, 24
+    # 3, 10 * 10, 24 = 3, 24
     dw2 = dz2.dot(y0.transpose())
     db2 = np.sum(dz2, axis=1)
     # (input -> hidden)
-    # 24, 20 * 24, 4 = 24, 4
+    # 24, 10 * 24, 4 = 24, 4
     dw1 = dz1.dot(inputs)
     db1 = np.sum(dz1, axis=1)
 
     return dw1, dw2, db1, db2
+
+    # # dC/dy * dy/dz
+    # # shape = 10, 50
+    # dz2 = -1 / len(targets[0]) * np.subtract(targets, y1)
+    # # dy/dz * (error for every neuron * weights for it)
+    # # shape = 100, 50 * 100, 50(50, 10 dot 10, 100)  =>  100, 50
+    # dz1 = y0 * np.subtract(1, y0) * dz2.transpose().dot(weights_level_2).transpose()
+    # # (hidden -> output)
+    # # 10, 50 * 50, 100 = 10, 100
+    # dw2 = dz2.dot(y0.transpose())
+    # db2 = np.sum(dz2, axis=1)
+    # # (input -> hidden)
+    # # 100, 50 * 50, 784 = 100, 784
+    # dw1 = dz1.dot(inputs)
+    # db1 = np.sum(dz1, axis=1)
+    #
+    # return dw1, dw2, db1, db2
 
 
 def update_params(weights, biases, dw1, dw2, db1, db2, learning_rate):
@@ -147,7 +179,7 @@ def train(train_data, train_target, test_data, test_target, weights, biases, nr_
     for epoch_nr in range(nr_epochs):
         for batch_index in range(len(batches_target)):
             z0, y0, z1, y1 = forward_prop(weights, biases, batches_data[batch_index])
-            dw1, dw2, db1, db2 = backward_prop(z0, batches_data[batch_index], y0, y1, weights_level_2=weights[1],
+            dw1, dw2, db1, db2 = backward_prop(batches_data[batch_index], y0, y1, weights_level_2=weights[1],
                                                targets=batches_target[batch_index])
             weights, biases = update_params(weights, biases, dw1, dw2, db1, db2, learning_rate)
 
@@ -215,7 +247,7 @@ def get_confusion_matrix(weights, biases, dataset_data, dataset_target):
              [IRIS_VIRGINICA, confusion_matrix[2][0], confusion_matrix[2][1], confusion_matrix[2][2]]
              ]
     print()
-    print("~" * 20 + "THE CONFUSION MATRIX" + "~" * 20)
+    print("~" * 10 + "THE CONFUSION MATRIX" + "~" * 10)
     print(tabulate(table))
     return confusion_matrix
 
@@ -227,7 +259,7 @@ def main():
 
     hidden_size = 24
     weights, biases = get_weights_and_biases(hidden_size)
-    # batches_data, batches_target = get_batches(train_data, train_target, 20)
+    # batches_data, batches_target = get_batches(train_data, train_target, 10)
     print(f"accuracy without any training: {get_accuracy(weights, biases, train_data, train_target)[0]}")
     get_confusion_matrix(weights, biases, train_data, train_target)
     train(train_data, train_target, test_data, test_target, weights, biases)
