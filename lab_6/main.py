@@ -1,6 +1,9 @@
 import math
 import os
 
+import numpy
+
+from graphics import Graphics
 from input.parser import Parser
 import numpy as np
 import random as rand
@@ -40,16 +43,16 @@ def get_error(results, outputs):
 
 
 def forward_prop(weights, biases, instances):
-    z0 = np.add((weights[0].dot(instances.transpose())), biases[0].reshape(24, 1))
-    y0 = sigmoid(z0)
-    z1 = np.add(np.dot(weights[1], y0), biases[1].reshape(3, 1))
-    y1 = sigmoid(z1)
-    return z0, y0, z1, y1
-    # z0 = np.add(weights[0].dot(instances.transpose()), biases[0].reshape(24, 1))
+    # z0 = np.add((weights[0].dot(instances.transpose())), biases[0].reshape(24, 1))
     # y0 = sigmoid(z0)
     # z1 = np.add(np.dot(weights[1], y0), biases[1].reshape(3, 1))
-    # y1 = softmax(z1)
+    # y1 = sigmoid(z1)
     # return z0, y0, z1, y1
+    z0 = np.add(weights[0].dot(instances.transpose()), biases[0].reshape(24, 1))
+    y0 = sigmoid(z0)
+    z1 = np.add(np.dot(weights[1], y0), biases[1].reshape(3, 1))
+    y1 = softmax(z1)
+    return z0, y0, z1, y1
 
 
 def softmax(values):
@@ -58,16 +61,16 @@ def softmax(values):
 
 
 def forward_prop_instance(weights, biases, instance):
-    z0 = np.add(weights[0].dot(instance), biases[0])
-    y0 = sigmoid(z0)
-    z1 = np.add(np.dot(weights[1], y0), biases[1])
-    y1 = sigmoid(z1)
-    return z0, y0, z1, y1
     # z0 = np.add(weights[0].dot(instance), biases[0])
     # y0 = sigmoid(z0)
     # z1 = np.add(np.dot(weights[1], y0), biases[1])
-    # y1 = softmax(z1)
+    # y1 = sigmoid(z1)
     # return z0, y0, z1, y1
+    z0 = np.add(weights[0].dot(instance), biases[0])
+    y0 = sigmoid(z0)
+    z1 = np.add(np.dot(weights[1], y0), biases[1])
+    y1 = softmax(z1)
+    return z0, y0, z1, y1
 
 
 def get_one_hot_target(target):
@@ -126,39 +129,39 @@ def plot_accuracies(nr_epochs, training_accuracy, test_accuracy, graph_name):
 
 
 def backward_prop(inputs, y0, y1, weights_level_2, targets):
-    # dC/dy * dy/dz
-    # shape = 3, 10
-    dz2 = y1 * np.subtract(1, y1) * np.subtract(y1, targets)
-    # dy/dz * (error for every neuron * weights for it)
-    # shape = 24, 10 * 24, 10(10, 4 dot 4, 24)  =>  24, 10
-    dz1 = y0 * np.subtract(1, y0) * dz2.transpose().dot(weights_level_2).transpose()
-    # (hidden -> output)
-    # 3, 10 * 10, 24 = 3, 24
-    dw2 = dz2.dot(y0.transpose())
-    db2 = np.sum(dz2, axis=1)
-    # (input -> hidden)
-    # 24, 10 * 24, 4 = 24, 4
-    dw1 = dz1.dot(inputs)
-    db1 = np.sum(dz1, axis=1)
-
-    return dw1, dw2, db1, db2
-
     # # dC/dy * dy/dz
-    # # shape = 10, 50
-    # dz2 = -1 / len(targets[0]) * np.subtract(targets, y1)
+    # # shape = 3, 10
+    # dz2 = y1 * np.subtract(1, y1) * np.subtract(y1, targets)
     # # dy/dz * (error for every neuron * weights for it)
-    # # shape = 100, 50 * 100, 50(50, 10 dot 10, 100)  =>  100, 50
+    # # shape = 24, 10 * 24, 10(10, 4 dot 4, 24)  =>  24, 10
     # dz1 = y0 * np.subtract(1, y0) * dz2.transpose().dot(weights_level_2).transpose()
     # # (hidden -> output)
-    # # 10, 50 * 50, 100 = 10, 100
+    # # 3, 10 * 10, 24 = 3, 24
     # dw2 = dz2.dot(y0.transpose())
     # db2 = np.sum(dz2, axis=1)
     # # (input -> hidden)
-    # # 100, 50 * 50, 784 = 100, 784
+    # # 24, 10 * 24, 4 = 24, 4
     # dw1 = dz1.dot(inputs)
     # db1 = np.sum(dz1, axis=1)
     #
     # return dw1, dw2, db1, db2
+
+    # dC/dy * dy/dz
+    # shape = 10, 50
+    dz2 = -1 / len(targets[0]) * np.subtract(targets, y1)
+    # dy/dz * (error for every neuron * weights for it)
+    # shape = 100, 50 * 100, 50(50, 10 dot 10, 100)  =>  100, 50
+    dz1 = y0 * np.subtract(1, y0) * dz2.transpose().dot(weights_level_2).transpose()
+    # (hidden -> output)
+    # 10, 50 * 50, 100 = 10, 100
+    dw2 = dz2.dot(y0.transpose())
+    db2 = np.sum(dz2, axis=1)
+    # (input -> hidden)
+    # 100, 50 * 50, 784 = 100, 784
+    dw1 = dz1.dot(inputs)
+    db1 = np.sum(dz1, axis=1)
+
+    return dw1, dw2, db1, db2
 
 
 def update_params(weights, biases, dw1, dw2, db1, db2, learning_rate):
@@ -170,7 +173,7 @@ def update_params(weights, biases, dw1, dw2, db1, db2, learning_rate):
     return weights, biases
 
 
-def train(train_data, train_target, test_data, test_target, weights, biases, nr_epochs=400, learning_rate=0.35,
+def train(train_data, train_target, test_data, test_target, weights, biases, nr_epochs=400, learning_rate=0.01,
           batch_size=10):
     batches_data, batches_target = get_batches(train_data, train_target, batch_size)
     training_accuracy = []
@@ -262,8 +265,22 @@ def main():
     # batches_data, batches_target = get_batches(train_data, train_target, 10)
     print(f"accuracy without any training: {get_accuracy(weights, biases, train_data, train_target)[0]}")
     get_confusion_matrix(weights, biases, train_data, train_target)
-    train(train_data, train_target, test_data, test_target, weights, biases)
+    weights, biases = train(train_data, train_target, test_data, test_target, weights, biases)
 
+    wrong_classified = get_accuracy(weights, biases, train_data, train_target)[1]
+    data_arr = [
+        numpy.array([float(as_num) for as_num in element[0]])
+        for element in wrong_classified]
+    expected_results = [element[1] for element in wrong_classified]
+    results = [element[2] for element in wrong_classified]
+
+
+    print(wrong_classified)
+    graphics = Graphics(data=data_arr,
+                        expected_results=expected_results,
+                        results=results,
+                        must_process=True)
+    graphics.save_visual_representation()
 
 if __name__ == '__main__':
     main()

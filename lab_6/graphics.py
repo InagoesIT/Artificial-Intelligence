@@ -23,7 +23,7 @@ class Graphics:
             self.data = data
         self.expected_results = expected_results
         self.results = results
-        self.no_dimensions = len(data)
+        self.no_dimensions = len(self.data)
         self.dirname = "default"
 
     def save_visual_with_axis(self, x_index, y_index, z_index):

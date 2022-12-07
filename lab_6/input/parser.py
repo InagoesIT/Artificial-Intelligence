@@ -14,7 +14,8 @@ class Parser:
             line = line[:-1]
             attr_values = line.split(",")
             out_value = attr_values[-1]
-            data[out_value].append(attr_values[:-1])
+            float_values = [float(value) for value in attr_values[:-1]]
+            data[out_value].append(float_values)
 
         # TODO -> FIND A BETTER FIX FOR THIS ISSUE
         data.pop('')
