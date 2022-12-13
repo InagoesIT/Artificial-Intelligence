@@ -2,6 +2,7 @@ import random
 from collections import defaultdict
 
 import matplotlib.pyplot as plt
+import numpy
 import numpy as np
 
 ABSOLUTE_MINIMUM = -100_000
@@ -33,11 +34,13 @@ class Algorithm:
         self.q = defaultdict(lambda: dict())
 
         self.frequency = defaultdict(lambda: 0)
-        self.n_episodes = 1000
-        self.eps = 1
+        self.n_episodes = 100
+        self.eps = 0
         self.reward = dict()
         self.episodes_rewards = list()
         self.episodes_indexes = list()
+        self.before_state = dict()
+        self.episodes_paths = list()
 
     def is_possible(self, line, column, transition):
         pass
@@ -115,9 +118,12 @@ class Algorithm:
         for e in range(self.n_episodes):
             self.episodes_indexes.append(e)
             episode_reward = 0
-            current_state = self.get_initial_state()
             is_solution_found = False
+            episode_path = []
             while not is_solution_found:
+                current_state = self.get_initial_state()
+                self.before_state = dict()
+                episode_path = [current_state]
                 while True:
                     if np.random.uniform(0, 1) < self.eps:
                         action = self.get_random_action(state=current_state)
@@ -125,30 +131,38 @@ class Algorithm:
                         action = self.argmax_action(state=current_state)
 
                     next_state = self.do_transition(current_state=current_state, action=action)
+                    episode_path.append(next_state)
                     reward = self.reward[next_state]
 
                     best_next_action = self.argmax_action(state=next_state)
                     best_next_q = self.q[next_state][best_next_action]
 
-                    self.q[current_state][action] += self.learning_rate * (reward + self.discount * best_next_q - self.q[current_state][action])
+                    self.q[current_state][action] += self.learning_rate * (
+                                reward + self.discount * best_next_q - self.q[current_state][action])
 
                     episode_reward += reward
+
                     if self.eps > 0.1:
                         self.eps -= 0.05
 
                     if reward == -100:
                         break
+                    self.before_state[next_state] = current_state
                     if self.is_final(state=next_state):
                         is_solution_found = True
                         break
                     current_state = next_state
-
+            # self.episodes_paths.append(self.get_episode_path())
+            self.episodes_paths.append(episode_path)
             self.episodes_rewards.append(episode_reward)
 
     def pretty_print_stats(self):
-        print(self.episodes_rewards)
-
-        plt.plot(self.episodes_indexes, self.episodes_rewards)
+        for index, episode_path in enumerate(self.episodes_paths):
+            print(episode_path)
+            print(self.episodes_rewards[index])
+        print(self.q)
+        data = numpy.clip(self.episodes_rewards, -10, 10_000)
+        plt.plot(self.episodes_indexes, data)
         plt.xlabel('Episode Index')
         plt.ylabel('Episode Reward')
         plt.title('Q-Learning Statistics')
