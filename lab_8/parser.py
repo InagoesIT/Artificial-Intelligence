@@ -51,14 +51,19 @@ class Parser:
 
         return processed_concept1, processed_predicate, processed_concept2
 
-    def print_relationships(self):
+    def print_relationships(self, relationships_count):
         file_descriptor = open(self.file_path, 'w')
+        iteration = 1
 
         for concept1, predicate, concept2 in self.ontology:
+            if iteration == relationships_count:
+                break
             relation = concept1, predicate, concept2
             processed_relation = Parser.get_processed_relation(relation)
             if None in processed_relation:
                 continue
             file_descriptor.write(f"{processed_relation[0]} -> {processed_relation[1]} -> {processed_relation[2]}\n")
+
+            iteration += 1
 
         file_descriptor.close()

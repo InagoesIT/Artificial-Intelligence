@@ -4,8 +4,9 @@ from parser import Parser
 
 
 class Quiz:
-    def __init__(self, ontology):
+    def __init__(self, ontology, relationships_count):
         self.ontology = ontology
+        self.relationships_count = relationships_count
 
     @staticmethod
     def wants_to_stop(question):
@@ -55,23 +56,28 @@ class Quiz:
         if question == 0:
             given_answer = input(possible_questions[question].format(relation[0], relation[2]))
             return given_answer, relation[1]
-        else:
+        elif question == 1:
             given_answer = input(possible_questions[question].format(relation[0]))
+            return given_answer, relation[2]
+        else:
+            given_answer = input(possible_questions[question].format(relation[1], relation[0]))
             return given_answer, relation[2]
 
     def is_answer_right(self):
         possible_questions = ["-> What is the relationship between {0} and {1}? ",
-                              "-> Who is in a relationship with {0}? "]
+                              "-> Who is in a relationship with {0}? ",
+                              "-> Who is in a relationship {0} with {1}? "]
 
         question = rand.randrange(0, len(possible_questions))
-        concept_nr = rand.randrange(0, len(self.ontology))
+        concept_nr = rand.randrange(0, self.relationships_count)
         iteration = 0
 
         for concept1, predicate, concept2 in self.ontology:
             if concept_nr != iteration:
                 iteration += 1
                 continue
-
+            if iteration > self.relationships_count:
+                break
             processed_relation = Parser.get_processed_relation((concept1, concept2, predicate))
             if None in processed_relation:
                 concept_nr = rand.randrange(iteration, len(self.ontology))
