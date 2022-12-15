@@ -13,13 +13,15 @@ def main():
 
     ontology = Graph()
     ontology.parse(os.path.join(".", "resources", "computer.owl"))
-    relationships_count = 5500
 
-    # relationships_path = os.path.join(".", "resources", "relationships.txt")
-    # parser = Parser(ontology, relationships_path)
-    # parser.print_relationships(relationships_count)
+    relationships_count = 100
+    relationships_path = os.path.join(".", "resources", "relationships.txt")
 
-    quiz = Quiz(ontology, relationships_count)
+    parser = Parser(ontology, relationships_path)
+    processed_ontology = parser.get_processed_relationships(relationships_count)
+    parser.print_relationships(processed_ontology)
+
+    quiz = Quiz(processed_ontology, relationships_count)
     quiz.run()
 
 

@@ -31,10 +31,8 @@ class Quiz:
             return
 
         while True:
-            is_answer_right = self.is_answer_right()
-            if is_answer_right is None:
-                continue
-            if is_answer_right:
+            given_answer, answer = self.ask()
+            if Quiz.is_answer_right(given_answer, answer):
                 total_questions += 1
                 score += 1
             if Quiz.wants_to_stop(continue_text):
@@ -44,7 +42,7 @@ class Quiz:
         print(bye_text)
 
     @staticmethod
-    def process_answer(given_answer, answer):
+    def is_answer_right(given_answer, answer):
         if given_answer.lower() == answer.lower():
             print("Yey, you are right!")
             return True
@@ -63,30 +61,16 @@ class Quiz:
             given_answer = input(possible_questions[question].format(relation[1], relation[0]))
             return given_answer, relation[2]
 
-    def is_answer_right(self):
+    def ask(self):
         possible_questions = ["-> What is the relationship between {0} and {1}? ",
                               "-> Who is in a relationship with {0}? ",
                               "-> Who is in a relationship {0} with {1}? "]
 
-        question = rand.randrange(0, len(possible_questions))
-        concept_nr = rand.randrange(0, self.relationships_count)
-        iteration = 0
-
-        for concept1, predicate, concept2 in self.ontology:
-            if concept_nr != iteration:
-                iteration += 1
-                continue
-            if iteration > self.relationships_count:
+        while True:
+            question = rand.randrange(0, len(possible_questions))
+            relation_nr = rand.randrange(0, self.relationships_count)
+            relation = self.ontology[relation_nr]
+            if None not in relation:
                 break
-            processed_relation = Parser.get_processed_relation((concept1, concept2, predicate))
-            if None in processed_relation:
-                concept_nr = rand.randrange(iteration, len(self.ontology))
-                iteration += 1
-                continue
 
-            given_answer, answer = Quiz.get_answer(possible_questions, question, processed_relation)
-            return Quiz.process_answer(given_answer, answer)
-
-        print("Sorry, we didn't find a question...")
-        print("We will try to find a question again.")
-        return None
+        return Quiz.get_answer(possible_questions, question, relation)
