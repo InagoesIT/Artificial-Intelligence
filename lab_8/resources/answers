@@ -1,0 +1,23 @@
+[
+    {
+        "synonym": [
+            "information",
+            "information",
+            "info"
+        ],
+        "hypernym": [
+            "message"
+        ],
+        "meronym": []
+    },
+    {
+        "synonym": [
+            "quality",
+            "quality"
+        ],
+        "hypernym": [
+            "attribute"
+        ],
+        "meronym": []
+    }
+]

@@ -1,99 +1,99 @@
-microblog -> preferential equivalent -> micro-blog
-low energy consumption -> same as -> energy consumption
-network security -> contributes to -> mobile adhoc network (manets)
-sensor networks -> super topic of -> mobile sensor network
-case-based reasonings -> related equivalent -> case based reasoning (cbr)
-content-based retrieval -> contributes to -> conditional random fields (crfs)
-program compilers -> super topic of -> program interpreters
-mobile robot -> contributes to -> robotic assembly
-deontic logic -> preferential equivalent -> deontic logic
-ofdma -> label -> ofdma
-variational method -> label -> variational method
-virtual reality -> super topic of -> distributed virtual environments
-cellular phone -> related equivalent -> cellular phones
-isi channels -> same as -> Mx4rsPCaNOtMQdieD6iyiQbfxQ
-numerical methods -> contributes to -> parabolic equations
-cluster analysis -> contributes to -> clustering algorithms
-distributed hash tables -> super topic of -> structured p2p systems
-de-nosing -> super topic of -> wavelet de-noising
-sensor network -> contributes to -> communication constraints
-video streaming -> super topic of -> video streams
-polarographic analysis -> super topic of -> polarimetric imaging
-remote control -> contributes to -> mobile manipulator
-hierarchical mobile ipv6 -> related link -> Hierarchy
-cooperative communications -> contributes to -> amplify-and-forward relaying
-curricula -> contributes to -> teaching quality
-optical data processing -> super topic of -> optical computing
-portfolio management -> label -> portfolio management
-selection, genetic -> type -> cso topic
-markov processes -> contributes to -> cell loss probability
-key generation -> same as -> key generation
-data transmission - packet switching -> same as -> Data transmission
-aodv routing protocol -> same as -> Ad hoc On-Demand Distance Vector Routing
-internet -> contributes to -> network intrusions
-wsn -> super topic of -> multi hop communication
-ground moving targets -> label -> ground moving targets
-television interference -> label -> television interference
-network topology -> label -> network topology
-sensor device -> type -> cso topic
-pulsed lasers -> preferential equivalent -> pulsed lasers
-agricultural mechanization -> type -> cso topic
-map-matching algorithm -> type -> cso topic
-genetic structure -> super topic of -> genetic differentiation
-sub-carriers -> super topic of -> tone reservation
-random walk algorithms -> type -> cso topic
-cognitive radio network (crn) -> super topic of -> channel switching
-electromagnetic field theory -> super topic of -> electromagnetic (em)
-traceback -> super topic of -> attack path
-telecommunication systems -> contributes to -> stbc
-genetic conservation -> contributes to -> population structure
-certification authorities -> same as -> certificate authority
-signal to noise ratio -> super topic of -> optical signal to noise ratio
-wireless local area network (wlan) -> contributes to -> mac layer
-chromosome translocation 22 -> type -> cso topic
-fuzzy integrals -> related equivalent -> fuzzy integral
-mobile ad-hoc network -> contributes to -> ieee 802.11
-virtual machine -> contributes to -> virtual networks
-flight control systems -> related equivalent -> flight control system
-database -> super topic of -> computational linguistics
-markovian jumping parameters -> same as -> Markov chain
-mobile phone -> super topic of -> mobile terminals
-information system -> contributes to -> security risks
-electronic mail -> super topic of -> spammers
-communication channels (information theory) -> contributes to -> multiuser system
-semantics -> contributes to -> legacy system
-imaging systems -> contributes to -> holographic displays
-genetic conservation -> type -> cso topic
-linear matrix inequalities (lmis) -> contributes to -> output-feedback controllers
-transconductance amplifier -> same as -> Transconductance
-nash equilibrium -> related link -> Nash equilibrium
-human-machine interface -> same as -> user interface
-bayesian models -> related equivalent -> bayesian model
-communication systems -> contributes to -> mimo detectors
-distributed computer systems -> super topic of -> erasure coding
-takagi sugeno fuzzy models -> contributes to -> t-s fuzzy model
-ciphertexts -> super topic of -> without random oracles
-genetic polymorphism -> contributes to -> cancer susceptibility
-biomedical literature -> super topic of -> national library of medicine (u.s.)
-wireless sensor networks (wsns) -> super topic of -> localization method
-communication -> super topic of -> secure communications
-luminescence of organic solids -> same as -> m.0gjfx
-access control policy -> super topic of -> trust negotiations
-computer system -> super topic of -> telecommunication systems
-patch antenna -> type -> cso topic
-statistical analysis -> contributes to -> estimation method
-defocus -> related link -> Defocus aberration
-anomaly detection -> label -> anomaly detection
-number of vehicles -> type -> cso topic
-three dimensional computer graphics -> contributes to -> 3d face recognition
-semantic web technology -> super topic of -> semantic web service
-fuzzy differential equations -> type -> cso topic
-program processors -> super topic of -> shared memory
-automatic segmentation -> label -> automatic segmentation
-teleoperation systems -> same as -> Teleoperation
-computer programming languages -> contributes to -> software model checking
-optimization techniques -> related equivalent -> optimization methods
-group communication -> contributes to -> group key agreement
-cooperative games -> preferential equivalent -> cooperative game
-gibbs sampling -> label -> gibbs sampling
-artificial intelligence -> contributes to -> formal framework
+e-learning -> super topic of -> ims learning design
+integrated optics -> same as -> m.0g4v2y
+haptic interface -> related equivalent -> haptic
+learning activities -> super topic of -> learning object
+modeling language -> preferential equivalent -> modeling languages
+program compilers -> contributes to -> multithreaded
+threshold secret sharing -> label -> threshold secret sharing
+ontology -> contributes to -> web service composition
+finite-difference time-domain method -> related equivalent -> finite difference time domains
+security solutions -> contributes to -> malicious nodes
+sensors -> contributes to -> single-mode optical fiber
+energy detector -> related equivalent -> energy detection
+cryptography -> contributes to -> differential privacy
+bayesian method -> same as -> Bayesian inference
+colored petri net -> label -> colored petri net
+nlp -> super topic of -> word embedding
+malware -> super topic of -> malicious software
+bandwidth -> contributes to -> cache memories
+distributed real time system -> label -> distributed real time system
+sliding motions -> type -> cso topic
+computational linguistics -> super topic of -> text processing
+ip multimedia subsystem -> preferential equivalent -> ip multimedia subsystems
+numerical results -> super topic of -> cooperative relay
+approximate dynamic programming -> label -> approximate dynamic programming
+bayesian frameworks -> type -> cso topic
+genotype -> super topic of -> restriction fragment length polymorphism
+hybrid clouds -> label -> hybrid clouds
+neural networks -> contributes to -> fuzzy-neural
+satellite communication -> label -> satellite communication
+information analysis -> super topic of -> information quality
+image segmentation -> contributes to -> video retrieval
+multiagent systems -> preferential equivalent -> multiagent system
+genetic variability -> contributes to -> polymorphism, restriction fragment length
+network protocols -> contributes to -> diffserv
+cochannel interference -> contributes to -> femtocell
+social networks -> contributes to -> community detection
+video signal processing -> contributes to -> multiple description coding (mdc)
+video coding -> contributes to -> bit allocation
+allozymes -> type -> cso topic
+rts/cts -> label -> cts
+infrared detector -> super topic of -> focal plane array
+electromagnetic wave scattering -> contributes to -> computational electromagnetics
+fingerprint segmentation -> label -> fingerprint segmentation
+low signal-to-noise ratio -> type -> cso topic
+radar -> contributes to -> ultra wideband
+text mining -> contributes to -> text clustering
+impulse response -> super topic of -> channel shortening
+home automation systems -> label -> home automation systems
+radio transmission - fading -> type -> cso topic
+computer vision -> contributes to -> hand gestures
+queueing theory -> same as -> m.0dcjr
+fpga implementations -> type -> cso topic
+fault tolerant computer systems -> contributes to -> built-in self-test
+embedded systems -> contributes to -> system on chip (soc)
+semantic relationships -> contributes to -> semantic similarity measures
+data-base management systems -> related equivalent -> database management systems
+mimo -> same as -> m.05j1x6
+semantic relatedness -> preferential equivalent -> semantic similarity
+markov processes -> contributes to -> ieee 802.16e
+de-nosing -> super topic of -> remove noise
+virtual laboratories -> type -> cso topic
+sensors -> super topic of -> cramer-rao bound
+gateways (computer networks) -> contributes to -> mesh routers
+distributed computer systems -> contributes to -> dependability
+small sample size problems -> preferential equivalent -> small sample size problems
+annealing process -> label -> annealing process
+standard model -> contributes to -> random oracle
+de-noising algorithm -> label -> de-noising algorithm
+spatial data -> super topic of -> spatial clustering
+media streams -> same as -> Streaming media
+wimax -> contributes to -> wireless network
+metamaterial structures -> same as -> metamaterial
+fading channels -> contributes to -> time varying channel
+time-varying delays -> contributes to -> average dwell time
+formal methods -> super topic of -> safety critical systems
+public key cryptography -> super topic of -> public key encryption
+community detection -> contributes to -> real-world networks
+inverse kinematics -> contributes to -> parallel mechanisms
+bandwidth -> super topic of -> carrier communication
+real-time embedded systems -> type -> cso topic
+moving object detection -> type -> cso topic
+sigma delta modulator -> related equivalent -> sigma-delta modulator
+network protocols -> contributes to -> olsr
+computer software reusability -> same as -> m.01mf0
+linear precoding -> type -> cso topic
+routing protocol -> super topic of -> mobile ad hoc network
+secret data -> label -> secret data
+multi-core processor -> related equivalent -> multicore processor
+image segmentation -> contributes to -> shape matching
+field-programmable gate array (fpga) -> contributes to -> packet processing
+precoding -> super topic of -> block diagonalization
+fourier transforms -> related link -> Fourier transform
+wireless sensor network (wsn) -> super topic of -> heterogeneous wireless sensor networks
+perceived video quality -> label -> perceived video quality
+antennas -> contributes to -> broadcast channel
+energy utilization -> contributes to -> mobile ad hoc networks
+access point -> contributes to -> wi fi networks
+cognitive radio (cr) -> contributes to -> cooperative communication
+bluetooth -> same as -> Bluetooth
